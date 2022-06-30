@@ -1,8 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D50-Gj-6e0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="qYB-HV-YBY">
+            <objects>
+                <viewController id="D50-Gj-6e0" customClass="LoginViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zFc-hc-Cjt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fravel" translatesAutoresizingMaskIntoConstraints="NO" id="b5B-lD-iZp">
+                                <rect key="frame" x="50" y="172.5" width="314" height="198.5"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전세계를 누비는 우리의 여행 발자국" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5J-Fb-smg">
+                                <rect key="frame" x="97" y="391" width="220.5" height="72"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.59215686274509804" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="JdR-Hf-aJT">
+                                <rect key="frame" x="80" y="563" width="254" height="160"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGm-fU-zYa">
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Lcy-nC-o0e"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="-18" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Google로 로그인" image="logo_google">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapGoogleLoginButton:" destination="D50-Gj-6e0" eventType="touchUpInside" id="BDW-wG-6HI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCc-eM-QFP">
+                                        <rect key="frame" x="0.0" y="100" width="254" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="gWg-Hy-Llt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-20" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Apple ID로 로그인" image="applelogo" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapAppleLoginButton:" destination="D50-Gj-6e0" eventType="touchUpInside" id="Pei-Zt-2Li"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="kCc-eM-QFP" secondAttribute="trailing" id="CHH-sH-BR0"/>
+                                    <constraint firstItem="EGm-fU-zYa" firstAttribute="leading" secondItem="JdR-Hf-aJT" secondAttribute="leading" id="LdQ-hv-z49"/>
+                                    <constraint firstItem="kCc-eM-QFP" firstAttribute="leading" secondItem="JdR-Hf-aJT" secondAttribute="leading" id="bfA-xa-4uE"/>
+                                    <constraint firstAttribute="trailing" secondItem="EGm-fU-zYa" secondAttribute="trailing" id="lMU-de-9iH"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="k9m-U6-e2W"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="s5J-Fb-smg" firstAttribute="centerX" secondItem="k9m-U6-e2W" secondAttribute="centerX" id="2VR-IN-q5u"/>
+                            <constraint firstItem="k9m-U6-e2W" firstAttribute="trailing" secondItem="JdR-Hf-aJT" secondAttribute="trailing" constant="80" id="TYH-EC-LLi"/>
+                            <constraint firstItem="JdR-Hf-aJT" firstAttribute="centerX" secondItem="k9m-U6-e2W" secondAttribute="centerX" id="aro-vC-Zo6"/>
+                            <constraint firstItem="b5B-lD-iZp" firstAttribute="centerY" secondItem="k9m-U6-e2W" secondAttribute="centerY" multiplier="3/5" id="cLh-dr-TqY"/>
+                            <constraint firstItem="b5B-lD-iZp" firstAttribute="centerX" secondItem="k9m-U6-e2W" secondAttribute="centerX" id="fpm-1K-fwv"/>
+                            <constraint firstItem="s5J-Fb-smg" firstAttribute="top" secondItem="b5B-lD-iZp" secondAttribute="bottom" constant="20" id="lVf-FL-OrB"/>
+                            <constraint firstItem="b5B-lD-iZp" firstAttribute="leading" secondItem="k9m-U6-e2W" secondAttribute="leading" constant="50" id="o3M-g5-brO"/>
+                            <constraint firstItem="JdR-Hf-aJT" firstAttribute="leading" secondItem="k9m-U6-e2W" secondAttribute="leading" constant="80" id="q1f-fC-ltY"/>
+                            <constraint firstItem="k9m-U6-e2W" firstAttribute="trailing" secondItem="b5B-lD-iZp" secondAttribute="trailing" constant="50" id="rbQ-R2-LHq"/>
+                            <constraint firstItem="JdR-Hf-aJT" firstAttribute="top" secondItem="s5J-Fb-smg" secondAttribute="bottom" constant="100" id="sIG-jo-6VK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="appleLoginButton" destination="kCc-eM-QFP" id="f2r-fK-89o"/>
+                        <outlet property="googleLoginButton" destination="EGm-fU-zYa" id="N6i-ft-wzB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NGL-Jf-t9u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="361"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="1kD-1N-xyX">
+            <objects>
+                <viewController id="3M6-Ce-zwN" customClass="MainViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Eha-oP-GYV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="SsW-7k-lJx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2P4-gl-qVd"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SsW-7k-lJx" firstAttribute="top" secondItem="2P4-gl-qVd" secondAttribute="top" id="GMo-z5-e9z"/>
+                            <constraint firstItem="SsW-7k-lJx" firstAttribute="trailing" secondItem="2P4-gl-qVd" secondAttribute="trailing" id="JEz-LW-XrZ"/>
+                            <constraint firstItem="SsW-7k-lJx" firstAttribute="centerX" secondItem="2P4-gl-qVd" secondAttribute="centerX" id="gwv-D2-GML"/>
+                            <constraint firstItem="SsW-7k-lJx" firstAttribute="leading" secondItem="2P4-gl-qVd" secondAttribute="leading" id="wNk-6c-SSP"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="house" catalog="system" id="Oab-P7-Ip1"/>
+                    <connections>
+                        <outlet property="searchBar" destination="SsW-7k-lJx" id="EIl-pA-DQ7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PLK-bn-xT1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="1147"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="r5i-8p-30s">
+            <objects>
+                <viewController id="jOy-5r-cmt" customClass="MapViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0S1-SD-qhE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="sr4-ys-HOM"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="map" catalog="system" selectedImage="location.north.circle" id="E6P-ET-a6h"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4va-YL-kXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="838" y="1146"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="Nhu-a5-chL">
+            <objects>
+                <viewController id="MIL-6h-Xkj" customClass="ProfileViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fSI-mt-8iw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="U9n-jS-WrT"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" id="QGO-gq-qLX">
+                        <imageReference key="image" image="person" catalog="system"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ym3-ar-wcb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1754" y="1146"/>
+        </scene>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="rFt-SO-e7e">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarController" id="rQy-f0-Tsu" customClass="TabBarViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YWe-UJ-pFu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="3M6-Ce-zwN" kind="relationship" relationship="viewControllers" id="72x-TG-GBM"/>
+                        <segue destination="jOy-5r-cmt" kind="relationship" relationship="viewControllers" id="OOI-XR-Ohe"/>
+                        <segue destination="MIL-6h-Xkj" kind="relationship" relationship="viewControllers" id="Rdz-jv-uF9"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TIN-hf-4VH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="839" y="361"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Fravel" width="198.66667175292969" height="198.66667175292969"/>
+        <image name="applelogo" catalog="system" width="103" height="128"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="location.north.circle" catalog="system" width="128" height="121"/>
+        <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
+        <image name="map" catalog="system" width="128" height="110"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+    </resources>
 </document>

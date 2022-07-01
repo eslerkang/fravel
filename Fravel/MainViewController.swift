@@ -43,7 +43,7 @@ class MainViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.heightAnchor.constraint(equalToConstant: 260).isActive = true
         tableView.register(NoticeTableViewCell.self, forCellReuseIdentifier: noticeCellId)
         stackView.addArrangedSubview(tableView)
         print(stackView.arrangedSubviews)

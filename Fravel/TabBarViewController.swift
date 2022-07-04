@@ -13,16 +13,5 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
-    }
-}
-
-extension TabBarViewController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        let currentIndex = tabBarController.selectedIndex
-        if currentIndex == preSelectedIndex {
-            
-        }
-        preSelectedIndex = currentIndex
     }
 }

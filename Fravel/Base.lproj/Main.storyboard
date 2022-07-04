@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -105,46 +106,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9aI-rY-hDQ">
-                                <rect key="frame" x="10" y="44" width="394" height="769"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5UH-Dx-J3Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avr-or-fDQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="hOL-nW-qEi"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="5UH-Dx-J3Z" firstAttribute="width" secondItem="nEw-W9-ZRT" secondAttribute="width" id="0kR-g1-kC9"/>
-                                    <constraint firstItem="5UH-Dx-J3Z" firstAttribute="leading" secondItem="JaL-DH-e3A" secondAttribute="leading" id="RuT-WE-scY"/>
-                                    <constraint firstItem="5UH-Dx-J3Z" firstAttribute="trailing" secondItem="JaL-DH-e3A" secondAttribute="trailing" id="Vdy-Yq-kbY"/>
-                                    <constraint firstItem="5UH-Dx-J3Z" firstAttribute="top" secondItem="JaL-DH-e3A" secondAttribute="top" id="XrJ-gC-fPh"/>
-                                    <constraint firstItem="5UH-Dx-J3Z" firstAttribute="bottom" secondItem="JaL-DH-e3A" secondAttribute="bottom" id="bhQ-hi-6Qo"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="JaL-DH-e3A"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="nEw-W9-ZRT"/>
-                            </scrollView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eEZ-xu-xr1">
+                                <rect key="frame" x="20" y="64" width="374" height="729"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2P4-gl-qVd"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9aI-rY-hDQ" firstAttribute="top" secondItem="2P4-gl-qVd" secondAttribute="top" id="7ra-uE-M3Z"/>
-                            <constraint firstItem="2P4-gl-qVd" firstAttribute="trailing" secondItem="9aI-rY-hDQ" secondAttribute="trailing" constant="10" id="TyJ-AM-fVe"/>
-                            <constraint firstItem="9aI-rY-hDQ" firstAttribute="leading" secondItem="2P4-gl-qVd" secondAttribute="leading" constant="10" id="e63-dQ-oeY"/>
-                            <constraint firstItem="2P4-gl-qVd" firstAttribute="bottom" secondItem="9aI-rY-hDQ" secondAttribute="bottom" id="iVh-9V-blV"/>
+                            <constraint firstItem="eEZ-xu-xr1" firstAttribute="top" secondItem="2P4-gl-qVd" secondAttribute="top" constant="20" id="2YL-kD-qJ7"/>
+                            <constraint firstItem="2P4-gl-qVd" firstAttribute="bottom" secondItem="eEZ-xu-xr1" secondAttribute="bottom" constant="20" id="JbN-hh-ArE"/>
+                            <constraint firstItem="2P4-gl-qVd" firstAttribute="trailing" secondItem="eEZ-xu-xr1" secondAttribute="trailing" constant="20" id="KuS-Wm-2KI"/>
+                            <constraint firstItem="eEZ-xu-xr1" firstAttribute="leading" secondItem="2P4-gl-qVd" secondAttribute="leading" constant="20" id="x0a-Xu-Dx9"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="house" catalog="system" id="Oab-P7-Ip1"/>
                     <connections>
-                        <outlet property="stackView" destination="5UH-Dx-J3Z" id="kSu-iL-pbW"/>
+                        <outlet property="tableView" destination="eEZ-xu-xr1" id="KrI-9g-dsv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLK-bn-xT1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -217,5 +196,8 @@
         <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

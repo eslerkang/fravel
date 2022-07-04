@@ -8,7 +8,10 @@
 import UIKit
 
 class NoticeTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var titleTextLabel: UILabel!
+    @IBOutlet weak var authorTextLabel: UILabel!
+    @IBOutlet weak var dateTextLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

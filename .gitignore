@@ -214,3 +214,7 @@ GoogleService-Info.plist
 Pods/
 
 # End of https://www.toptal.com/developers/gitignore/api/cocoapods
+
+
+# Config Files
+*.xcconfig

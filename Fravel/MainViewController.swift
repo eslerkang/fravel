@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     var hiddenSections = Set<Int>()
     var tableViewData = [[Any]]()
     
-    let noticeCellId = "NoticeUITableVIewCell"
+    let noticeCellId = "NoticeTableViewCell"
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,8 +40,7 @@ class MainViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.heightAnchor.constraint(equalToConstant: 260).isActive = true
-        tableView.register(NoticeTableViewCell.self, forCellReuseIdentifier: noticeCellId)
+        tableView.register(UINib(nibName: noticeCellId, bundle: nil), forCellReuseIdentifier: noticeCellId)
     }
 }
 
@@ -51,8 +50,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId) as? NoticeTableViewCell else {return UITableViewCell()}
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -69,14 +68,43 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionButton = UIButton()
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 0
+        stackView.backgroundColor = .systemMint
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
         
+        let sectionButton = UIButton()
         sectionButton.setTitle(String(section), for: .normal)
-        sectionButton.backgroundColor = .systemMint
+        sectionButton.contentHorizontalAlignment = .left
         sectionButton.tag = section
+        sectionButton.titleLabel?.font = .systemFont(ofSize: 16)
         sectionButton.addTarget(self, action: #selector(hideSection(sender:)), for: .touchUpInside)
         
-        return sectionButton
+        
+        let moreButton = UIButton()
+        moreButton.setTitle("더보기", for: .normal)
+        moreButton.sizeToFit()
+        moreButton.contentHorizontalAlignment = .right
+        moreButton.tag = section
+        moreButton.addTarget(self, action: #selector(moveToSectionBoard(sender:)), for: .touchUpInside)
+        moreButton.titleLabel?.font = .systemFont(ofSize: 16)
+        
+        stackView.addArrangedSubview(sectionButton)
+        stackView.addArrangedSubview(moreButton)
+        
+        return stackView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        debugPrint(indexPath.section, indexPath.row)
     }
     
     @objc
@@ -101,4 +129,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             self.tableView.deleteRows(at: indexPathForSection(), with: .fade)
         }
     }
+    
+    @objc
+    private func moveToSectionBoard(sender: UIButton) {
+        debugPrint(sender.tag)
+    }
+    
 }

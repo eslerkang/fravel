@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C250395286D19A90053575D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C250394286D19A90053575D /* TabBarViewController.swift */; };
 		4C298538286BB25600800D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C298537286BB25600800D0C /* GoogleService-Info.plist */; };
+		4C4134B1286E6E74006CB0A5 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */; };
+		4C4134B2286E6E74006CB0A5 /* NoticeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */; };
+		4C429992286BC4BD001C3010 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429991286BC4BD001C3010 /* LoginViewController.swift */; };
+		4C429994286BC530001C3010 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429993286BC530001C3010 /* MainViewController.swift */; };
+		4C429996286BC5D3001C3010 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429995286BC5D3001C3010 /* MapViewController.swift */; };
+		4C429998286BC5DE001C3010 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429997286BC5DE001C3010 /* ProfileViewController.swift */; };
 		4C62D474286A7A2300B6F764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D473286A7A2300B6F764 /* AppDelegate.swift */; };
 		4C62D476286A7A2300B6F764 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D475286A7A2300B6F764 /* SceneDelegate.swift */; };
 		4C62D478286A7A2300B6F764 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D477286A7A2300B6F764 /* ViewController.swift */; };
@@ -18,7 +25,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0009E3286BCFB600074A2E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../../Downloads/Roboto/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		4C0009E4286BCFB600074A2E /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-MediumItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		4C0009E5286BCFB600074A2E /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../../../../Downloads/Roboto/Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		4C0009E6286BCFB600074A2E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "../../../../Downloads/Roboto/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		4C0009E7286BCFB600074A2E /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Bold.ttf"; path = "../../../../Downloads/Roboto/Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		4C0009E8286BCFB600074A2E /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Black.ttf"; path = "../../../../Downloads/Roboto/Roboto-Black.ttf"; sourceTree = "<group>"; };
+		4C0009E9286BCFB600074A2E /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Light.ttf"; path = "../../../../Downloads/Roboto/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		4C0009EA286BCFB600074A2E /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-BlackItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
+		4C0009EB286BCFB600074A2E /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-BoldItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		4C0009EC286BCFB600074A2E /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-ThinItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		4C0009ED286BCFB600074A2E /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Italic.ttf"; path = "../../../../Downloads/Roboto/Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		4C0009EE286BCFB600074A2E /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-LightItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		4C250394286D19A90053575D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4C298537286BB25600800D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
+		4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeTableViewCell.xib; sourceTree = "<group>"; };
+		4C429991286BC4BD001C3010 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4C429993286BC530001C3010 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4C429995286BC5D3001C3010 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4C429997286BC5DE001C3010 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4C62D470286A7A2300B6F764 /* Fravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C62D473286A7A2300B6F764 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C62D475286A7A2300B6F764 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +79,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4C0009E2286BCF9E00074A2E /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				4C0009E8286BCFB600074A2E /* Roboto-Black.ttf */,
+				4C0009EA286BCFB600074A2E /* Roboto-BlackItalic.ttf */,
+				4C0009E7286BCFB600074A2E /* Roboto-Bold.ttf */,
+				4C0009EB286BCFB600074A2E /* Roboto-BoldItalic.ttf */,
+				4C0009ED286BCFB600074A2E /* Roboto-Italic.ttf */,
+				4C0009E9286BCFB600074A2E /* Roboto-Light.ttf */,
+				4C0009EE286BCFB600074A2E /* Roboto-LightItalic.ttf */,
+				4C0009E6286BCFB600074A2E /* Roboto-Medium.ttf */,
+				4C0009E4286BCFB600074A2E /* Roboto-MediumItalic.ttf */,
+				4C0009E3286BCFB600074A2E /* Roboto-Regular.ttf */,
+				4C0009E5286BCFB600074A2E /* Roboto-Thin.ttf */,
+				4C0009EC286BCFB600074A2E /* Roboto-ThinItalic.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		4C62D467286A7A2300B6F764 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +119,7 @@
 		4C62D472286A7A2300B6F764 /* Fravel */ = {
 			isa = PBXGroup;
 			children = (
+				4C0009E2286BCF9E00074A2E /* Font */,
 				4CFCAB6E286BB6F800D2D777 /* Fravel.entitlements */,
 				4C62D473286A7A2300B6F764 /* AppDelegate.swift */,
 				4C62D475286A7A2300B6F764 /* SceneDelegate.swift */,
@@ -83,6 +129,13 @@
 				4C62D47E286A7A2400B6F764 /* LaunchScreen.storyboard */,
 				4C62D481286A7A2400B6F764 /* Info.plist */,
 				4C298537286BB25600800D0C /* GoogleService-Info.plist */,
+				4C429991286BC4BD001C3010 /* LoginViewController.swift */,
+				4C429993286BC530001C3010 /* MainViewController.swift */,
+				4C429995286BC5D3001C3010 /* MapViewController.swift */,
+				4C429997286BC5DE001C3010 /* ProfileViewController.swift */,
+				4C250394286D19A90053575D /* TabBarViewController.swift */,
+				4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */,
+				4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */,
 			);
 			path = Fravel;
 			sourceTree = "<group>";
@@ -158,6 +211,7 @@
 			files = (
 				4C62D480286A7A2400B6F764 /* LaunchScreen.storyboard in Resources */,
 				4C298538286BB25600800D0C /* GoogleService-Info.plist in Resources */,
+				4C4134B2286E6E74006CB0A5 /* NoticeTableViewCell.xib in Resources */,
 				4C62D47D286A7A2400B6F764 /* Assets.xcassets in Resources */,
 				4C62D47B286A7A2300B6F764 /* Main.storyboard in Resources */,
 			);
@@ -212,9 +266,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C250395286D19A90053575D /* TabBarViewController.swift in Sources */,
+				4C429992286BC4BD001C3010 /* LoginViewController.swift in Sources */,
+				4C4134B1286E6E74006CB0A5 /* NoticeTableViewCell.swift in Sources */,
+				4C429996286BC5D3001C3010 /* MapViewController.swift in Sources */,
 				4C62D478286A7A2300B6F764 /* ViewController.swift in Sources */,
 				4C62D474286A7A2300B6F764 /* AppDelegate.swift in Sources */,
+				4C429998286BC5DE001C3010 /* ProfileViewController.swift in Sources */,
 				4C62D476286A7A2300B6F764 /* SceneDelegate.swift in Sources */,
+				4C429994286BC530001C3010 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

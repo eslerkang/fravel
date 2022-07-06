@@ -154,12 +154,36 @@
                     <view key="view" contentMode="scaleToFill" id="fSI-mt-8iw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAT-q1-5Lc">
+                                <rect key="frame" x="171" y="413" width="72.5" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="로그아웃"/>
+                                <connections>
+                                    <action selector="tapLogoutButton:" destination="MIL-6h-Xkj" eventType="touchUpInside" id="Azf-ZV-1Wt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWP-Hi-1fK">
+                                <rect key="frame" x="186" y="311" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="U9n-jS-WrT"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nWP-Hi-1fK" firstAttribute="centerX" secondItem="U9n-jS-WrT" secondAttribute="centerX" id="BXI-2C-YtB"/>
+                            <constraint firstItem="nAT-q1-5Lc" firstAttribute="top" secondItem="nWP-Hi-1fK" secondAttribute="bottom" constant="81" id="GvI-aj-yb4"/>
+                            <constraint firstItem="nAT-q1-5Lc" firstAttribute="centerX" secondItem="U9n-jS-WrT" secondAttribute="centerX" id="Lzo-ce-6K0"/>
+                            <constraint firstItem="nAT-q1-5Lc" firstAttribute="centerY" secondItem="U9n-jS-WrT" secondAttribute="centerY" id="gBF-P2-uZe"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="QGO-gq-qLX">
                         <imageReference key="image" image="person" catalog="system"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="nameLabel" destination="nWP-Hi-1fK" id="Vgt-wA-SHv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym3-ar-wcb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -21,6 +21,10 @@
 		4C62D47B286A7A2300B6F764 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C62D479286A7A2300B6F764 /* Main.storyboard */; };
 		4C62D47D286A7A2400B6F764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C62D47C286A7A2400B6F764 /* Assets.xcassets */; };
 		4C62D480286A7A2400B6F764 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C62D47E286A7A2400B6F764 /* LaunchScreen.storyboard */; };
+		4CA2BE122878FFF8004423D1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA2BE112878FFF8004423D1 /* MapKit.framework */; };
+		4CAFB29E28799DD3001B412C /* FootprintsAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */; };
+		4CF24674287985B300E233FC /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF24673287985B300E233FC /* NetworkCheck.swift */; };
+		4CF24676287992E500E233FC /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF24675287992E500E233FC /* LocationInfo.swift */; };
 		80020E7726837EDBCD9D12CE /* Pods_Fravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B606DEAF997E8BF537780769 /* Pods_Fravel.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +57,10 @@
 		4C62D47C286A7A2400B6F764 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C62D47F286A7A2400B6F764 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C62D481286A7A2400B6F764 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CA2BE112878FFF8004423D1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootprintsAnnotation.swift; sourceTree = "<group>"; };
+		4CF24673287985B300E233FC /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
+		4CF24675287992E500E233FC /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
 		4CFCAB6E286BB6F800D2D777 /* Fravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fravel.entitlements; sourceTree = "<group>"; };
 		53E61ACCDE3D239F78D7BDF6 /* Pods-Fravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fravel.debug.xcconfig"; path = "Target Support Files/Pods-Fravel/Pods-Fravel.debug.xcconfig"; sourceTree = "<group>"; };
 		75877A05958CBB67961A28FF /* Pods-Fravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fravel.release.xcconfig"; path = "Target Support Files/Pods-Fravel/Pods-Fravel.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CA2BE122878FFF8004423D1 /* MapKit.framework in Frameworks */,
 				80020E7726837EDBCD9D12CE /* Pods_Fravel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +83,7 @@
 		17E5AD161EAC4659A5317E9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2BE112878FFF8004423D1 /* MapKit.framework */,
 				B606DEAF997E8BF537780769 /* Pods_Fravel.framework */,
 			);
 			name = Frameworks;
@@ -136,6 +146,9 @@
 				4C250394286D19A90053575D /* TabBarViewController.swift */,
 				4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */,
 				4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */,
+				4CF24673287985B300E233FC /* NetworkCheck.swift */,
+				4CF24675287992E500E233FC /* LocationInfo.swift */,
+				4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */,
 			);
 			path = Fravel;
 			sourceTree = "<group>";
@@ -266,8 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CF24676287992E500E233FC /* LocationInfo.swift in Sources */,
 				4C250395286D19A90053575D /* TabBarViewController.swift in Sources */,
+				4CF24674287985B300E233FC /* NetworkCheck.swift in Sources */,
 				4C429992286BC4BD001C3010 /* LoginViewController.swift in Sources */,
+				4CAFB29E28799DD3001B412C /* FootprintsAnnotation.swift in Sources */,
 				4C4134B1286E6E74006CB0A5 /* NoticeTableViewCell.swift in Sources */,
 				4C429996286BC5D3001C3010 /* MapViewController.swift in Sources */,
 				4C62D478286A7A2300B6F764 /* ViewController.swift in Sources */,
@@ -426,6 +442,8 @@
 				DEVELOPMENT_TEAM = 37GVH438CS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Fravel/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치 정보를 받아오려 합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치 정보를 받아오려 합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -456,6 +474,8 @@
 				DEVELOPMENT_TEAM = 37GVH438CS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Fravel/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치 정보를 받아오려 합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치 정보를 받아오려 합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

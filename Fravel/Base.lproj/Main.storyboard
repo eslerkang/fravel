@@ -101,7 +101,7 @@
         <!--Main View Controller-->
         <scene sceneID="1kD-1N-xyX">
             <objects>
-                <viewController id="3M6-Ce-zwN" customClass="MainViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="3M6-Ce-zwN" customClass="MainViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Eha-oP-GYV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,11 +137,39 @@
                     <view key="view" contentMode="scaleToFill" id="0S1-SD-qhE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="649-My-o3R">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                            </mapView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인터넷 연결 없음" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbC-R3-QJY">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="tim-K3-bMh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="sr4-ys-HOM"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sr4-ys-HOM" firstAttribute="bottom" secondItem="649-My-o3R" secondAttribute="bottom" id="L8d-bK-m0S"/>
+                            <constraint firstItem="649-My-o3R" firstAttribute="top" secondItem="sr4-ys-HOM" secondAttribute="top" id="QpM-rw-gzn"/>
+                            <constraint firstItem="sr4-ys-HOM" firstAttribute="trailing" secondItem="hbC-R3-QJY" secondAttribute="trailing" id="Up5-3u-78M"/>
+                            <constraint firstItem="649-My-o3R" firstAttribute="leading" secondItem="sr4-ys-HOM" secondAttribute="leading" id="fUe-c4-jp7"/>
+                            <constraint firstItem="hbC-R3-QJY" firstAttribute="top" secondItem="sr4-ys-HOM" secondAttribute="top" id="gAF-Sp-dTZ"/>
+                            <constraint firstItem="sr4-ys-HOM" firstAttribute="trailing" secondItem="649-My-o3R" secondAttribute="trailing" id="sZy-9T-e5X"/>
+                            <constraint firstItem="hbC-R3-QJY" firstAttribute="leading" secondItem="sr4-ys-HOM" secondAttribute="leading" id="zkB-Eo-TYq"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="map" catalog="system" selectedImage="location.north.circle" id="E6P-ET-a6h"/>
+                    <connections>
+                        <outlet property="mapView" destination="649-My-o3R" id="s22-7z-dHg"/>
+                        <outlet property="noInternetLabel" destination="hbC-R3-QJY" id="zbM-Qk-k95"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4va-YL-kXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,6 +7,7 @@
 
 import Foundation
 import Network
+import Alamofire
 
 final class NetworkCheck {
     static let shared = NetworkCheck()
@@ -36,5 +37,13 @@ final class NetworkCheck {
 
     public func stopMonitoring() {
         monitor.cancel()
+    }
+    
+    public func isNetworkConnected() -> Bool {
+        if NetworkReachabilityManager()?.status == .notReachable {
+            return false
+        }
+        
+        return true
     }
 }

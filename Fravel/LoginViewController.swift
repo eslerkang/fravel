@@ -33,6 +33,15 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if !NetworkCheck.shared.isNetworkConnected() {
+            showMessagePrompt("인터넷 연결을 확인해주세요.", { _ in
+                UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    exit(0)
+                }
+            })
+        }
+        
         if let _ = Auth.auth().currentUser {
             self.moveToTabBarController()
         }
@@ -54,7 +63,7 @@ class LoginViewController: UIViewController {
         GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [weak self] user, error in
             guard let self = self else {return}
             if let error = error {
-                self.showMessagePrompt("ERROR: \(error.localizedDescription)")
+                self.showMessagePrompt("ERROR: \(error.localizedDescription)", nil)
                 return
             }
             
@@ -70,7 +79,7 @@ class LoginViewController: UIViewController {
             Auth.auth().signIn(with: credential) { [weak self] authResult, error in
                 guard let self = self else {return}
                 if let error = error {
-                    self.showMessagePrompt("ERROR: \(error.localizedDescription)")
+                    self.showMessagePrompt("ERROR: \(error.localizedDescription)", nil)
                     return
                 }
                 self.moveToTabBarController()
@@ -82,9 +91,9 @@ class LoginViewController: UIViewController {
         startSignInWithAppleFlow()
     }
     
-    func showMessagePrompt(_ message: String) {
+    func showMessagePrompt(_ message: String, _ handler: ((UIAlertAction) -> Void)?) {
       let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+      let okAction = UIAlertAction(title: "OK", style: .default, handler: handler)
       alert.addAction(okAction)
       present(alert, animated: false, completion: nil)
     }
@@ -183,7 +192,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
                 guard let self = self else {return}
                 if let error = error {
-                    self.showMessagePrompt("ERROR: \(error.localizedDescription)")
+                    self.showMessagePrompt("ERROR: \(error.localizedDescription)", nil)
                     return
                 }
                 self.moveToTabBarController()

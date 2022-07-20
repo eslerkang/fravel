@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var hiddenSections = Set<Int>()
-    var tableViewData = [[Any]]()
+    var tableViewData = [[Post]]()
     
     let noticeCellId = "NoticeTableViewCell"
+        
+    let db = Firestore.firestore()
+    
+    var postTypes = [PostType]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -23,11 +28,67 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
         
-        self.tableViewData = [
-            [1, 2, 3, 4, 5],
-            [6, 7, 8],
-            [9, 10, 11, 21, 13, 14]
-        ]
+        db.collection("types").order(by: "order").addSnapshotListener { querySnapshot, error in
+            if error != nil {
+                print("ERROR: \(String(describing: error))")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("ERROR FireStore fetching document \(String(describing: error))")
+                return
+            }
+                        
+            self.postTypes = documents.compactMap { doc -> PostType? in
+                let data = doc.data()
+                let id = doc.documentID
+                guard let name = data["name"] as? String else {return nil}
+                return PostType(id: id, name: name)
+            }
+            
+            self.tableViewData = []
+            
+            for (index, type) in self.postTypes.enumerated() {
+                self.tableViewData.append([])
+                
+                let id = type.id
+                
+                self.db.collection("posts").whereField("type", isEqualTo: self.db.document("/types/\(id)")).order(by: "createdAt", descending: true).limit(to: 5).addSnapshotListener { querySnapshot, error in
+                    if error != nil {
+                        print("ERROR: \(String(describing: error))")
+                        return
+                    }
+                    
+                    guard let documents = querySnapshot?.documents else {
+                        print("ERROR FireStore fetching document \(String(describing: error))")
+                        return
+                    }
+                    
+                    let posts = documents.compactMap { doc -> Post? in
+                        let data = doc.data()
+                        let type = id
+                        let id = doc.documentID
+                        guard
+                            let title = data["title"] as? String,
+                            let content = data["content"] as? String,
+                            let createdAt = (data["createdAt"] as? Timestamp)?.dateValue(),
+                            let userId = data["userId"] as? String
+                        else {return nil}
+                        return Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt)
+                    }
+                    
+                    self.tableViewData[index] = posts
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
         
         setupTableView()
     }
@@ -36,30 +97,45 @@ class MainViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: noticeCellId, bundle: nil), forCellReuseIdentifier: noticeCellId)
     }
+    
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.locale = Locale(identifier: "ko_KR")
+        
+        return formatter.string(from: date)
+    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.tableViewData.count
+        return self.postTypes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
-        cell.selectionStyle = .none
-        return cell
+        let post = self.tableViewData[indexPath[0]][indexPath[1]]
+        switch self.postTypes[indexPath[0]].name {
+        case "공지사항":
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
+            cell.selectionStyle = .none
+            cell.titleTextLabel.text = post.title
+            cell.dateTextLabel.text = dateToString(date: post.createdAt)
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.hiddenSections.contains(section) {
             return 0
         }
-        
         return self.tableViewData[section].count
     }
     
@@ -78,10 +154,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         stackView.isLayoutMarginsRelativeArrangement = true
         
         let sectionButton = UIButton()
-        sectionButton.setTitle(String(section), for: .normal)
+        sectionButton.setTitle(String(postTypes[section].name), for: .normal)
         sectionButton.contentHorizontalAlignment = .left
         sectionButton.tag = section
-        sectionButton.titleLabel?.font = .systemFont(ofSize: 16)
+        sectionButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         sectionButton.addTarget(self, action: #selector(hideSection(sender:)), for: .touchUpInside)
         
         
@@ -132,7 +208,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc
     private func moveToSectionBoard(sender: UIButton) {
-        debugPrint(sender.tag)
+        debugPrint(self.postTypes[sender.tag])
     }
-    
 }

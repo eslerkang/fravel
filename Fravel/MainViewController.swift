@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     var tableViewData = [[Post]]()
     
     let noticeCellId = "NoticeTableViewCell"
+    let defaultCellId = "DefaultTableViewCell"
         
     let db = Firestore.firestore()
     
@@ -48,10 +49,10 @@ class MainViewController: UIViewController {
             
             self.tableViewData = []
             
-            for (index, type) in self.postTypes.enumerated() {
+            for (index, postType) in self.postTypes.enumerated() {
                 self.tableViewData.append([])
                 
-                let id = type.id
+                let id = postType.id
                 
                 self.db.collection("posts").whereField("type", isEqualTo: self.db.document("/types/\(id)")).order(by: "createdAt", descending: true).limit(to: 5).addSnapshotListener { querySnapshot, error in
                     if error != nil {
@@ -68,12 +69,18 @@ class MainViewController: UIViewController {
                         let data = doc.data()
                         let type = id
                         let id = doc.documentID
+                        
                         guard
                             let title = data["title"] as? String,
                             let content = data["content"] as? String,
-                            let createdAt = (data["createdAt"] as? Timestamp)?.dateValue(),
-                            let userId = data["userId"] as? String
-                        else {return nil}
+                            let createdAt = (data["createdAt"] as? Timestamp)?.dateValue()
+                        else {
+                            print("ERROR: Invalid Post")
+                            return nil
+                        }
+                        
+                        let userId = data["userId"] as? String
+
                         return Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt)
                     }
                     
@@ -101,6 +108,7 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: noticeCellId, bundle: nil), forCellReuseIdentifier: noticeCellId)
+        tableView.register(UINib(nibName: defaultCellId, bundle: nil), forCellReuseIdentifier: defaultCellId)
     }
     
     private func dateToString(date: Date) -> String {
@@ -119,7 +127,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = self.tableViewData[indexPath[0]][indexPath[1]]
+        let post = self.tableViewData[indexPath.section][indexPath.row]
         switch self.postTypes[indexPath[0]].name {
         case "공지사항":
             guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
@@ -128,7 +136,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.dateTextLabel.text = dateToString(date: post.createdAt)
             return cell
         default:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: defaultCellId, for: indexPath) as? DefaultTableViewCell else {return UITableViewCell()}
+            cell.selectionStyle = .none
+            cell.titleTextLabel.text = post.title
+            cell.dateTextLabel.text = dateToString(date: post.createdAt)
+            return cell
         }
     }
     
@@ -209,5 +221,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     @objc
     private func moveToSectionBoard(sender: UIButton) {
         debugPrint(self.postTypes[sender.tag])
+        print(self.tableViewData)
     }
 }

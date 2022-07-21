@@ -13,7 +13,7 @@ struct Post {
     let id: String
     let title: String
     let content: String
-    let userId: String
+    let userId: String?
     let type: String
     let createdAt: Date
 }

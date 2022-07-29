@@ -28,14 +28,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xFw-WR-ppM">
                                 <rect key="frame" x="0.0" y="37.5" width="335" height="32.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="준(관리자)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vi-aY-iP0">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="32.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022.02.08" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sV-Ro-b3J">
-                                        <rect key="frame" x="167.5" y="0.0" width="167.5" height="32.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="32.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -54,7 +48,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="authorTextLabel" destination="9vi-aY-iP0" id="VqW-Rr-HWj"/>
                 <outlet property="dateTextLabel" destination="6sV-Ro-b3J" id="675-cU-g3A"/>
                 <outlet property="titleTextLabel" destination="Z15-mb-pAf" id="law-Fn-arN"/>
             </connections>

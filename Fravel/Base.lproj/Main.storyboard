@@ -239,6 +239,36 @@
             </objects>
             <point key="canvasLocation" x="839" y="361"/>
         </scene>
+        <!--Post List View Controller-->
+        <scene sceneID="Vw1-1V-dMb">
+            <objects>
+                <viewController storyboardIdentifier="PostListViewController" id="W4A-bn-hRa" customClass="PostListViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zbd-V6-5ds">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="2Di-td-Rue"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQC-by-F3j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="1864"/>
+        </scene>
+        <!--Post Detail View Controller-->
+        <scene sceneID="CI7-HR-YHT">
+            <objects>
+                <viewController storyboardIdentifier="PostDetailViewController" id="7qI-45-Y3W" customClass="PostDetailViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YQZ-pS-3B6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Qxn-jC-LBw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hCn-cV-NUj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="2550"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Fravel" width="198.66667175292969" height="198.66667175292969"/>

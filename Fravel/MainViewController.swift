@@ -128,7 +128,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let post = self.tableViewData[indexPath.section][indexPath.row]
-        switch self.postTypes[indexPath[0]].name {
+        switch self.postTypes[indexPath.section].name {
         case "공지사항":
             guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
             cell.selectionStyle = .none

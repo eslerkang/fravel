@@ -12,6 +12,7 @@ import AuthenticationServices
 import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
+import FirebaseFirestore
 
 
 class LoginViewController: UIViewController {
@@ -19,6 +20,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var appleLoginButton: UIButton!
     
     fileprivate var currentNonce: String?
+    
+    let db = Firestore.firestore()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -99,6 +102,23 @@ class LoginViewController: UIViewController {
     }
     
     func moveToTabBarController() {
+        guard let user = Auth.auth().currentUser else {return}
+        db.collection("users").document(user.uid).getDocument {[weak self] document, error in
+            guard let self = self else {return}
+            if let error = error {
+                print("ERROR: \(String(describing: error.localizedDescription))")
+                return
+            }
+            if document?.data() == nil {
+                let displayname = user.displayName ?? user.email ?? "사용자"
+                
+                self.db.collection("users").document(user.uid).setData([
+                    "displayname": displayname
+                ]) { error in
+                    print("ERROR: \(String(describing: error?.localizedDescription))")
+                }
+            }
+        }
         guard let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarViewController else {return}
         tabBarController.modalPresentationStyle = .fullScreen
         self.present(tabBarController, animated: true)

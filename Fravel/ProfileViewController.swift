@@ -13,8 +13,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let name = Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ??  "사용자"
+        guard let user = Auth.auth().currentUser else {return}
+        let name = user.displayName ?? user.email ??  "사용자"
         nameLabel.text = name
     }
     

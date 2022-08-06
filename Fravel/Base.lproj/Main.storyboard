@@ -107,7 +107,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eEZ-xu-xr1">
-                                <rect key="frame" x="20" y="64" width="374" height="729"/>
+                                <rect key="frame" x="20" y="108" width="374" height="685"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -122,13 +122,26 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="house" catalog="system" id="Oab-P7-Ip1"/>
+                    <navigationItem key="navigationItem" id="oRq-Yw-ngE">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="bTM-6S-Jzq">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="6wb-Ci-DRu">
+                                <rect key="frame" x="299.5" y="5" width="94.5" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="글쓰기">
+                                    <imageReference key="image" image="pencil.tip.crop.circle.badge.plus" catalog="system" renderingMode="original"/>
+                                </buttonConfiguration>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="eEZ-xu-xr1" id="KrI-9g-dsv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLK-bn-xT1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26.086956521739133" y="1146.4285714285713"/>
+            <point key="canvasLocation" x="-26" y="1886"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="r5i-8p-30s">
@@ -230,29 +243,14 @@
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="3M6-Ce-zwN" kind="relationship" relationship="viewControllers" id="72x-TG-GBM"/>
-                        <segue destination="jOy-5r-cmt" kind="relationship" relationship="viewControllers" id="OOI-XR-Ohe"/>
-                        <segue destination="MIL-6h-Xkj" kind="relationship" relationship="viewControllers" id="Rdz-jv-uF9"/>
+                        <segue destination="ezv-Xc-EUn" kind="relationship" relationship="viewControllers" id="y7U-8c-LAA"/>
+                        <segue destination="jOy-5r-cmt" kind="relationship" relationship="viewControllers" id="Fvs-v2-QHn"/>
+                        <segue destination="MIL-6h-Xkj" kind="relationship" relationship="viewControllers" id="FP1-vd-9RG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TIN-hf-4VH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="839" y="361"/>
-        </scene>
-        <!--Post List View Controller-->
-        <scene sceneID="Vw1-1V-dMb">
-            <objects>
-                <viewController storyboardIdentifier="PostListViewController" id="W4A-bn-hRa" customClass="PostListViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Zbd-V6-5ds">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="2Di-td-Rue"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mQC-by-F3j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-26" y="1864"/>
         </scene>
         <!--Post Detail View Controller-->
         <scene sceneID="CI7-HR-YHT">
@@ -267,7 +265,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hCn-cV-NUj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="2550"/>
+            <point key="canvasLocation" x="1754" y="1886"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pwN-bv-Lk1">
+            <objects>
+                <navigationController id="ezv-Xc-EUn" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="house" catalog="system" id="Qkc-QY-1kn"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RvU-uy-SSJ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="3M6-Ce-zwN" kind="relationship" relationship="rootViewController" id="hxf-vR-WHq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="npZ-Ir-KtZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="1146"/>
+        </scene>
+        <!--Post List View Controller-->
+        <scene sceneID="nor-7a-Pm1">
+            <objects>
+                <tableViewController storyboardIdentifier="PostListViewController" id="8sF-S7-HQC" customClass="PostListViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="zlN-s7-LOb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="8sF-S7-HQC" id="6HN-Z7-ey1"/>
+                            <outlet property="delegate" destination="8sF-S7-HQC" id="GdK-zs-qVi"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ld-1C-yfu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="838" y="1886"/>
         </scene>
     </scenes>
     <resources>
@@ -277,6 +310,7 @@
         <image name="location.north.circle" catalog="system" width="128" height="121"/>
         <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
         <image name="map" catalog="system" width="128" height="110"/>
+        <image name="pencil.tip.crop.circle.badge.plus" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -6,24 +6,114 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
-class PostListViewController: UIViewController {
 
+class PostListViewController: UITableViewController {
+    var postType: PostType?
+    var cellIdentifier: String?
+    var posts = [Post]()
+    
+    let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        configureTableView()
+        
+        getPosts()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func configureTableView() {
+        guard let postType = postType else {
+            return
+        }
+        
+        switch postType.name {
+        case "공지사항":
+            cellIdentifier = "NoticeTableViewCell"
+            tableView.register(UINib(nibName: cellIdentifier!, bundle: nil), forCellReuseIdentifier: cellIdentifier!)
+        default:
+            cellIdentifier = "DefaultTableViewCell"
+            tableView.register(UINib(nibName: cellIdentifier!, bundle: nil), forCellReuseIdentifier: cellIdentifier!)
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
     }
-    */
+    
+    private func getPosts() {
+        guard let postType = postType else {
+            return
+        }
+        
+        let postTypeId = postType.id
 
+        db.collection("posts")
+            .whereField("type", isEqualTo: db.document("/types/\(postTypeId)"))
+            .order(by: "createdAt", descending: true)
+            .addSnapshotListener
+        { [weak self] querySnapshot, error in
+            guard let self = self else {return}
+            
+            if error != nil {
+                print("ERROR: \(String(describing: error))")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("ERROR FireStore fetching document \(String(describing: error))")
+                return
+            }
+            
+            self.posts = documents.compactMap { doc -> Post? in
+                let data = doc.data()
+                let type = postTypeId
+                let id = doc.documentID
+                
+                guard
+                    let title = data["title"] as? String,
+                    let content = data["content"] as? String,
+                    let createdAt = (data["createdAt"] as? Timestamp)?.dateValue()
+                else {
+                    print("ERROR: Invalid Post")
+                    return nil
+                }
+                
+                let userId = data["userId"] as? String
+
+                return Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt)
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+}
+
+
+extension PostListViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let postType = postType else {
+            return UITableViewCell()
+        }
+        
+        switch postType.name {
+        case "공지사항":
+            break
+        default:
+            break
+        }
+        
+        return UITableViewCell()
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
 }

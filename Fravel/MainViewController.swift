@@ -132,14 +132,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         case "공지사항":
             guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
             cell.selectionStyle = .none
-            cell.titleTextLabel.text = post.title
-            cell.dateTextLabel.text = dateToString(date: post.createdAt)
+            cell.configurePost(post: post)
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: defaultCellId, for: indexPath) as? DefaultTableViewCell else {return UITableViewCell()}
             cell.selectionStyle = .none
-            cell.titleTextLabel.text = post.title
-            cell.dateTextLabel.text = dateToString(date: post.createdAt)
+            cell.configurePost(post: post)
             return cell
         }
     }
@@ -221,6 +219,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     @objc
     private func moveToSectionBoard(sender: UIButton) {
         debugPrint(self.postTypes[sender.tag])
-        print(self.tableViewData)
+        guard let postListViewController = self.storyboard?.instantiateViewController(withIdentifier: "PostListViewController") as? PostListViewController else {
+            return
+        }
+        let postType = self.postTypes[sender.tag] as PostType
+        postListViewController.postType = postType
+        self.show(postListViewController, sender: nil)
     }
 }

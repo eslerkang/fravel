@@ -40,6 +40,8 @@ class PostListViewController: UITableViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        self.title = postType.name
     }
     
     private func getPosts() {
@@ -99,21 +101,29 @@ extension PostListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let postType = postType else {
+        guard let postType = postType,
+              let cellIdentifier = cellIdentifier
+        else {
             return UITableViewCell()
         }
         
         switch postType.name {
         case "공지사항":
-            break
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
+            cell.configurePost(post: posts[indexPath.row])
+            return cell
         default:
-            break
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DefaultTableViewCell else {return UITableViewCell()}
+            cell.configurePost(post: posts[indexPath.row])
+            return cell
         }
-        
-        return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }

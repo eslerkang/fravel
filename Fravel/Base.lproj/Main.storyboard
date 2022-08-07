@@ -265,7 +265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hCn-cV-NUj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1754" y="1886"/>
+            <point key="canvasLocation" x="2663.768115942029" y="1885.7142857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pwN-bv-Lk1">
@@ -297,10 +297,41 @@
                             <outlet property="delegate" destination="8sF-S7-HQC" id="GdK-zs-qVi"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="dcB-Az-UHq">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="swv-uG-AA8">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ndb-Gx-f40">
+                                <rect key="frame" x="299.5" y="5" width="94.5" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="글쓰기">
+                                    <imageReference key="image" image="pencil.tip.crop.circle.badge.plus" catalog="system" renderingMode="original"/>
+                                </buttonConfiguration>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ld-1C-yfu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="838" y="1886"/>
+            <point key="canvasLocation" x="1747.826086956522" y="1885.7142857142856"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IuQ-M2-Ve4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jwI-bO-4q3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hQL-5w-eKT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8sF-S7-HQC" kind="relationship" relationship="rootViewController" id="xiX-Ua-pvb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T1c-g8-nk0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="837.68115942028987" y="1885.7142857142856"/>
         </scene>
     </scenes>
     <resources>

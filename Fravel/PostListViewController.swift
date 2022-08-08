@@ -128,7 +128,12 @@ extension PostListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
+        guard let postType = postType else {return}
+        let post = posts[indexPath.row]
+        guard let postDetailViewController = storyboard?.instantiateViewController(withIdentifier: "PostDetailViewController") as? PostDetailViewController else {return}
+        postDetailViewController.post = post
+        postDetailViewController.postType = postType
+        show(postDetailViewController, sender: nil)
     }
 }
 

@@ -128,15 +128,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let post = self.tableViewData[indexPath.section][indexPath.row]
-        switch self.postTypes[indexPath.section].name {
-        case "공지사항":
+        switch self.postTypes[indexPath.section].id {
+        case "notice":
             guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
-            cell.selectionStyle = .none
             cell.configurePost(post: post)
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: defaultCellId, for: indexPath) as? DefaultTableViewCell else {return UITableViewCell()}
-            cell.selectionStyle = .none
             cell.configurePost(post: post)
             return cell
         }
@@ -162,6 +160,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         stackView.backgroundColor = .systemMint
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.cornerRadius = 15
         
         let sectionButton = UIButton()
         sectionButton.setTitle(String(postTypes[section].name), for: .normal)
@@ -190,7 +189,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        debugPrint(indexPath.section, indexPath.row)
+        let postType = postTypes[indexPath.section]
+        let post = tableViewData[indexPath.section][indexPath.row]
+        guard let postDetailViewController = storyboard?.instantiateViewController(withIdentifier: "PostDetailViewController") as? PostDetailViewController else {return}
+        postDetailViewController.post = post
+        postDetailViewController.postType = postType
+        show(postDetailViewController, sender: nil)
     }
     
     @objc
@@ -218,7 +222,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc
     private func moveToSectionBoard(sender: UIButton) {
-        debugPrint(self.postTypes[sender.tag])
         guard let postListViewController = self.storyboard?.instantiateViewController(withIdentifier: "PostListViewController") as? PostListViewController else {
             return
         }

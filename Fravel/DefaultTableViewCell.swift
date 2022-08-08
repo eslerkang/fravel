@@ -29,8 +29,9 @@ class DefaultTableViewCell: UITableViewCell {
     func configurePost(post: Post) {
         self.titleTextLabel.text = post.title
         self.dateTextLabel.text = dateToString(date: post.createdAt)
-        self.commentTextLabel.text = "0"
-        self.likeTextLabel.text = "0"
+        self.commentTextLabel.text = "💬 0"
+        self.likeTextLabel.text = "❤️ 0"
+        self.selectionStyle = .none
         
         guard let userId = post.userId else {
             setAuthorAsUnknown()

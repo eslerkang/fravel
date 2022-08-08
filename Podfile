@@ -11,6 +11,7 @@ target 'Fravel' do
   pod 'FirebaseAuth'
   pod 'GoogleSignIn'
   pod 'FirebaseAnalytics'
+  pod 'FirebaseStorage'
   pod 'FirebaseFirestore'
 
 end

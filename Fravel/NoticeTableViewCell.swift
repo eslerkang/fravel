@@ -22,6 +22,7 @@ class NoticeTableViewCell: UITableViewCell {
     func configurePost(post: Post) {
         self.titleTextLabel.text = post.title
         self.dateTextLabel.text = dateToString(date: post.createdAt)
+        self.selectionStyle = .none
     }
     
     private func dateToString(date: Date) -> String {

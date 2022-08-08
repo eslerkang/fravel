@@ -21,6 +21,7 @@
 		4C62D47B286A7A2300B6F764 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C62D479286A7A2300B6F764 /* Main.storyboard */; };
 		4C62D47D286A7A2400B6F764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C62D47C286A7A2400B6F764 /* Assets.xcassets */; };
 		4C62D480286A7A2400B6F764 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C62D47E286A7A2400B6F764 /* LaunchScreen.storyboard */; };
+		4C6FFE9D28A0D94E00710AA2 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */; };
 		4CA2BE122878FFF8004423D1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA2BE112878FFF8004423D1 /* MapKit.framework */; };
 		4CAFB29E28799DD3001B412C /* FootprintsAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */; };
 		4CAFBB3228882A2A00D33351 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFBB3128882A2A00D33351 /* PostInfo.swift */; };
@@ -62,6 +63,7 @@
 		4C62D47C286A7A2400B6F764 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C62D47F286A7A2400B6F764 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C62D481286A7A2400B6F764 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CA2BE112878FFF8004423D1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootprintsAnnotation.swift; sourceTree = "<group>"; };
 		4CAFBB3128882A2A00D33351 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */,
 				4CB38DB42893CC4600D96084 /* PostListViewController.swift */,
 				4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */,
+				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
 			);
 			path = Fravel;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6FFE9D28A0D94E00710AA2 /* ImageCollectionViewCell.swift in Sources */,
 				4CF24676287992E500E233FC /* LocationInfo.swift in Sources */,
 				4CB38DB72893CC6F00D96084 /* PostDetailViewController.swift in Sources */,
 				4CB38DB52893CC4600D96084 /* PostListViewController.swift in Sources */,

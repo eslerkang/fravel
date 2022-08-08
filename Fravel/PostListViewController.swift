@@ -29,8 +29,8 @@ class PostListViewController: UITableViewController {
             return
         }
         
-        switch postType.name {
-        case "공지사항":
+        switch postType.id {
+        case "notice":
             cellIdentifier = "NoticeTableViewCell"
             tableView.register(UINib(nibName: cellIdentifier!, bundle: nil), forCellReuseIdentifier: cellIdentifier!)
         default:
@@ -107,8 +107,8 @@ extension PostListViewController {
             return UITableViewCell()
         }
         
-        switch postType.name {
-        case "공지사항":
+        switch postType.id {
+        case "notice":
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
             cell.configurePost(post: posts[indexPath.row])
             return cell
@@ -126,4 +126,9 @@ extension PostListViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
+    }
 }
+

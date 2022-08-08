@@ -143,6 +143,9 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+        let imageDetailViewController = storyboard?.instantiateViewController(withIdentifier: "ImageDetailViewController") as! ImageDetailViewController
+        
+        imageDetailViewController.imageURL = imageURLs[indexPath.row]
+        self.present(imageDetailViewController, animated: true)
     }
 }

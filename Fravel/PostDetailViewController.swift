@@ -60,12 +60,9 @@ class PostDetailViewController: UIViewController {
         let likeBarButton = UIBarButtonItem(customView: likeButton)
         let commentBarButton = UIBarButtonItem(customView: commentButton)
         
-        navigationItem.rightBarButtonItems = [likeBarButton, commentBarButton]
         
-        if postType.id == "notice" {
-            navigationItem.rightBarButtonItems?.forEach {
-                $0.isEnabled = false
-            }
+        if postType.id != "notice" {
+            navigationItem.rightBarButtonItems = [likeBarButton, commentBarButton]
         }
         
         if postType.id == "everyonesFoot" {
@@ -117,7 +114,6 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
-        
         return cell
     }
     

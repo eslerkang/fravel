@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import Kingfisher
 import MapKit
+import FirebaseStorage
 
 
 class PostDetailViewController: UIViewController {
@@ -18,11 +19,12 @@ class PostDetailViewController: UIViewController {
     
     
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     var postType: PostType?
     var post: Post?
     
-    var images = [String]()
+    var imageURLs = [URL]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,22 +87,31 @@ class PostDetailViewController: UIViewController {
                 return
             }
             
-            self.images = documents.compactMap { doc -> String? in
+            documents.forEach {doc in
                 let data = doc.data()
-                let id = doc.documentID
                 
-                guard let url = data["url"] as? String else {
+                guard let ref = data["url"] as? String else {
                     print("ERROR: Invalid Image")
-                    return nil
+                    return
                 }
                 
-                return url
-            }
-            
-            print(self.images)
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                let imageRef = self.storage.reference(forURL: ref)
+
+                imageRef.downloadURL { url, error in
+                    if let error = error {
+                        print("ERROR: \(String(describing: error.localizedDescription))")
+                        return
+                    }
+                    guard let url = url else {
+                        return
+                    }
+                    
+                    self.imageURLs.append(url)
+                    
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }
             }
         }
     }
@@ -109,18 +120,24 @@ class PostDetailViewController: UIViewController {
 
 extension PostDetailViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return imageURLs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 200)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
+
+        cell.imageView.kf.setImage(with: imageURLs[indexPath.row])
+        cell.imageView.contentMode = .scaleAspectFit
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor.lightGray.cgColor
+        
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 40, height: view.frame.height)
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }

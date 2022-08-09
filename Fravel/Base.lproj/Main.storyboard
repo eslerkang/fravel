@@ -132,6 +132,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="글쓰기">
                                     <imageReference key="image" image="pencil.tip.crop.circle.badge.plus" catalog="system" renderingMode="original"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="tapWritePostButton:" destination="3M6-Ce-zwN" eventType="touchUpInside" id="b6C-Ru-TVK"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -393,6 +396,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="글쓰기">
                                     <imageReference key="image" image="pencil.tip.crop.circle.badge.plus" catalog="system" renderingMode="original"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="tapWritePostButton:" destination="8sF-S7-HQC" eventType="touchUpInside" id="91d-ac-fcr"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -466,20 +472,57 @@
             </objects>
             <point key="canvasLocation" x="1754" y="2620"/>
         </scene>
-        <!--View Controller-->
+        <!--새 글 작성-->
         <scene sceneID="39m-D8-Ldd">
             <objects>
-                <viewController id="JZ3-cQ-V4U" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WritePostViewController" id="JZ3-cQ-V4U" customClass="WritePostViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uc4-Ag-RrO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="7HV-sD-tYQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" title="새 글 작성" id="uER-RW-a9D">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="plain" id="a2d-dS-spr">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="pUn-9E-Wja">
+                                <rect key="frame" x="290" y="5" width="104" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.0" green="0.59215686270000001" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="작성하기">
+                                    <imageReference key="image" image="paperplane" catalog="system" symbolScale="default"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="tapWrtieButton:" destination="JZ3-cQ-V4U" eventType="touchUpInside" id="RkB-ku-Nid"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="postButton" destination="pUn-9E-Wja" id="yAL-Zn-B5h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Vp-Jf-Prq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="3360"/>
+            <point key="canvasLocation" x="838" y="3331"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Utt-Oz-LeV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Yrs-pT-dcl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0TQ-uI-Jal">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="JZ3-cQ-V4U" kind="relationship" relationship="rootViewController" id="xY2-yH-SWT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wBw-qc-3UH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="3332"/>
         </scene>
     </scenes>
     <resources>
@@ -489,6 +532,7 @@
         <image name="location.north.circle" catalog="system" width="128" height="121"/>
         <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
         <image name="map" catalog="system" width="128" height="110"/>
+        <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="pencil.tip.crop.circle.badge.plus" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <systemColor name="labelColor">

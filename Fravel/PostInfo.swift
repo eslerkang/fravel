@@ -24,3 +24,9 @@ struct PostType {
     let id: String
     let name: String
 }
+
+
+struct ImageInfo {
+    let url: URL
+    let order: Int
+}

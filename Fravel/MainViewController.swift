@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
+        self.navigationController?.navigationBar.topItem?.title = ""
         
         db.collection("types").order(by: "order").addSnapshotListener { querySnapshot, error in
             if error != nil {
@@ -117,10 +118,6 @@ class MainViewController: UIViewController {
         setupTableView()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     func appendPost(index: Int, id: String, title: String, content: String, userId: String?, type: String, createdAt: Date, userDisplayName: String?) {
         self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: userDisplayName))
         self.tableViewData[index].sort {
@@ -148,6 +145,8 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func tapWritePostButton(_ sender: UIButton) {
+        let writePostViewController = storyboard?.instantiateViewController(withIdentifier: "WritePostViewController") as! WritePostViewController
+        self.show(writePostViewController, sender: nil)
     }
 }
 

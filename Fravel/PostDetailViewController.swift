@@ -26,10 +26,12 @@ class PostDetailViewController: UIViewController {
     var postType: PostType?
     var post: Post?
     
-    var imageURLs = [URL]()
+    var imageURLs = [ImageInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.topItem?.title = ""
+
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -99,6 +101,10 @@ class PostDetailViewController: UIViewController {
                     return
                 }
                 
+                guard let order = data["order"] as? Int else {
+                    return
+                }
+                
                 let imageRef = self.storage.reference(forURL: ref)
 
                 imageRef.downloadURL { url, error in
@@ -110,9 +116,12 @@ class PostDetailViewController: UIViewController {
                         return
                     }
                     
-                    self.imageURLs.append(url)
+                    self.imageURLs.append(ImageInfo(url: url, order: order))
                     
                     DispatchQueue.main.async {
+                        self.imageURLs.sort {
+                            $0.order < $1.order
+                        }
                         self.collectionView.reloadData()
                     }
                 }
@@ -143,7 +152,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
 
-        cell.imageView.kf.setImage(with: imageURLs[indexPath.row])
+        cell.imageView.kf.setImage(with: imageURLs[indexPath.row].url)
         cell.imageView.contentMode = .scaleAspectFit
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.lightGray.cgColor
@@ -158,7 +167,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageDetailViewController = storyboard?.instantiateViewController(withIdentifier: "ImageDetailViewController") as! ImageDetailViewController
         
-        imageDetailViewController.imageURL = imageURLs[indexPath.row]
+        imageDetailViewController.imageURL = imageURLs[indexPath.row].url
         self.present(imageDetailViewController, animated: true)
     }
 }

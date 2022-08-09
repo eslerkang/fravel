@@ -18,7 +18,8 @@ class PostListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.navigationBar.topItem?.title = ""
+
         configureTableView()
         
         getPosts()
@@ -106,7 +107,6 @@ class PostListViewController: UITableViewController {
                             
                         self.posts.append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname))
                         self.sortPost()
-                        print(self.posts)
                     } else {
                         print("ERROR: Document does not exist")
                         self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)"))
@@ -128,6 +128,8 @@ class PostListViewController: UITableViewController {
     }
     
     @IBAction func tapWritePostButton(_ sender: UIButton) {
+        let writePostViewController = storyboard?.instantiateViewController(withIdentifier: "WritePostViewController") as! WritePostViewController
+        self.show(writePostViewController, sender: nil)
     }
 }
 

@@ -32,13 +32,7 @@ class DefaultTableViewCell: UITableViewCell {
         self.commentTextLabel.text = "💬 0"
         self.likeTextLabel.text = "❤️ 0"
         self.selectionStyle = .none
-        
-        guard let userId = post.userId else {
-            setAuthorAsUnknown()
-            return
-        }
-        
-        getUserDisplayName(userId: userId)
+        self.authorTextLabel.text = post.userDisplayName
     }
     
     private func dateToString(date: Date) -> String {
@@ -48,32 +42,5 @@ class DefaultTableViewCell: UITableViewCell {
         formatter.locale = Locale(identifier: "ko_KR")
         
         return formatter.string(from: date)
-    }
-    
-    private func getUserDisplayName(userId: String) {
-        db.collection("users").document(userId).getDocument { [weak self] snapshot, error in
-            guard let self = self else {return}
-            if let error = error {
-                print("ERROR: \(String(describing: error.localizedDescription))")
-                self.setAuthorAsUnknown()
-                return
-            }
-            if let document = snapshot, document.exists {
-                let data = document.data()
-                guard let displayname = data?["displayname"] as? String else {
-                    self.setAuthorAsUnknown()
-                    return
-                }
-                self.authorTextLabel.text = displayname
-            } else {
-                print("ERROR: Document does not exist")
-                self.setAuthorAsUnknown()
-                return
-            }
-        }
-    }
-    
-    private func setAuthorAsUnknown() {
-        self.authorTextLabel.text = "(알수없음)"
     }
 }

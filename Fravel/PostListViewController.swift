@@ -68,29 +68,66 @@ class PostListViewController: UITableViewController {
                 return
             }
             
-            self.posts = documents.compactMap { doc -> Post? in
+            documents.forEach { doc  in
                 let data = doc.data()
                 let type = postTypeId
                 let id = doc.documentID
-                
+
                 guard
                     let title = data["title"] as? String,
                     let content = data["content"] as? String,
                     let createdAt = (data["createdAt"] as? Timestamp)?.dateValue()
                 else {
                     print("ERROR: Invalid Post")
-                    return nil
+                    return
                 }
                 
-                let userId = data["userId"] as? String
-
-                return Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt)
-            }
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+                guard let userId = data["userId"] as? String else {
+                    self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil))
+                    self.sortPost()
+                    return
+                }
+                
+                self.db.collection("users").document(userId).getDocument { snapshot, error in
+                    if let error = error {
+                        print("ERROR: \(String(describing: error.localizedDescription))")
+                        self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)"))
+                        self.sortPost()
+                        return
+                    }
+                    
+                    if let document = snapshot, document.exists {
+                        let data = document.data()
+                        guard let displayname = data?["displayname"] as? String else {
+                            self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)"))
+                            self.sortPost()
+                            return
+                        }
+                            
+                        self.posts.append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname))
+                        self.sortPost()
+                        print(self.posts)
+                    } else {
+                        print("ERROR: Document does not exist")
+                        self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)"))
+                        self.sortPost()
+                        return
+                    }
+                }
             }
         }
+    }
+    
+    func sortPost() {
+        self.posts.sort {
+            $0.createdAt > $1.createdAt
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func tapWritePostButton(_ sender: UIButton) {
     }
 }
 

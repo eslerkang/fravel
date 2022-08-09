@@ -16,6 +16,8 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     
     let db = Firestore.firestore()
@@ -46,6 +48,8 @@ class PostDetailViewController: UIViewController {
 
         self.title = post.title
         self.contentTextView.text = post.content.replacingOccurrences(of: "\\n", with: "\n")
+        self.authorLabel.text = post.userDisplayName
+        self.dateLabel.text = dateToString(date: post.createdAt)
         
         let likeButton = UIButton()
         likeButton.setTitle("좋아요", for: .normal)
@@ -114,6 +118,15 @@ class PostDetailViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.locale = Locale(identifier: "ko_KR")
+        
+        return formatter.string(from: date)
     }
 }
 

@@ -46,15 +46,14 @@ class MainViewController: UIViewController {
                 guard let name = data["name"] as? String else {return nil}
                 return PostType(id: id, name: name)
             }
-            
-            self.tableViewData = []
-            
+                        
             for (index, postType) in self.postTypes.enumerated() {
                 self.tableViewData.append([])
                 
                 let id = postType.id
                 
                 self.db.collection("posts").whereField("type", isEqualTo: self.db.document("/types/\(id)")).order(by: "createdAt", descending: true).limit(to: 5).addSnapshotListener { querySnapshot, error in
+                    self.tableViewData[index] = []
                     if error != nil {
                         print("ERROR: \(String(describing: error))")
                         return
@@ -65,7 +64,7 @@ class MainViewController: UIViewController {
                         return
                     }
                     
-                    let posts = documents.compactMap { doc -> Post? in
+                    documents.forEach { doc in
                         let data = doc.data()
                         let type = id
                         let id = doc.documentID
@@ -76,23 +75,41 @@ class MainViewController: UIViewController {
                             let createdAt = (data["createdAt"] as? Timestamp)?.dateValue()
                         else {
                             print("ERROR: Invalid Post")
-                            return nil
+                            return
                         }
                         
-                        let userId = data["userId"] as? String
-
-                        return Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt)
+                        guard let userId = data["userId"] as? String else {
+                            self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil))
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                            return
+                        }
+                        
+            
+                        self.db.collection("users").document(userId).getDocument { snapshot, error in
+                            if let error = error {
+                                print("ERROR: \(String(describing: error.localizedDescription))")
+                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil)
+                                return
+                            }
+                            
+                            if let document = snapshot, document.exists {
+                                let data = document.data()
+                                guard let displayname = data?["displayname"] as? String else {
+                                    self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil)
+                                    return
+                                }
+                                
+                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname)
+                                
+                            } else {
+                                print("ERROR: Document does not exist")
+                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil)
+                                return
+                            }
+                        }
                     }
-                    
-                    self.tableViewData[index] = posts
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
                 }
             }
         }
@@ -102,6 +119,16 @@ class MainViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    func appendPost(index: Int, id: String, title: String, content: String, userId: String?, type: String, createdAt: Date, userDisplayName: String?) {
+        self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: userDisplayName))
+        self.tableViewData[index].sort {
+            $0.createdAt > $1.createdAt
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func setupTableView() {
@@ -118,6 +145,9 @@ class MainViewController: UIViewController {
         formatter.locale = Locale(identifier: "ko_KR")
         
         return formatter.string(from: date)
+    }
+    
+    @IBAction func tapWritePostButton(_ sender: UIButton) {
     }
 }
 

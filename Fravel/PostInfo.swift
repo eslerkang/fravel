@@ -16,6 +16,7 @@ struct Post {
     let userId: String?
     let type: String
     let createdAt: Date
+    let userDisplayName: String?
 }
 
 

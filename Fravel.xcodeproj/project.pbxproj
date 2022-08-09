@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C12CAD728A2550400B9085A /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C12CAD628A2550400B9085A /* WritePostViewController.swift */; };
 		4C250395286D19A90053575D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C250394286D19A90053575D /* TabBarViewController.swift */; };
 		4C298538286BB25600800D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C298537286BB25600800D0C /* GoogleService-Info.plist */; };
 		4C4134B1286E6E74006CB0A5 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */; };
@@ -48,6 +49,7 @@
 		4C0009EC286BCFB600074A2E /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-ThinItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		4C0009ED286BCFB600074A2E /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Italic.ttf"; path = "../../../../Downloads/Roboto/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		4C0009EE286BCFB600074A2E /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-LightItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		4C12CAD628A2550400B9085A /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
 		4C250394286D19A90053575D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4C298537286BB25600800D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */,
 				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
 				4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */,
+				4C12CAD628A2550400B9085A /* WritePostViewController.swift */,
 			);
 			path = Fravel;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 			files = (
 				4C6FFE9D28A0D94E00710AA2 /* ImageCollectionViewCell.swift in Sources */,
 				4CF24676287992E500E233FC /* LocationInfo.swift in Sources */,
+				4C12CAD728A2550400B9085A /* WritePostViewController.swift in Sources */,
 				4CB38DB72893CC6F00D96084 /* PostDetailViewController.swift in Sources */,
 				4CB38DB52893CC4600D96084 /* PostListViewController.swift in Sources */,
 				4C250395286D19A90053575D /* TabBarViewController.swift in Sources */,

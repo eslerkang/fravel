@@ -80,54 +80,33 @@ class PostDetailViewController: UIViewController {
     }
     
     func getImages() {
-        let postRef = db.collection("posts").document(post!.id)
-        postRef.collection("images").addSnapshotListener {[weak self] snapshot, error in
-            guard let self = self else {return}
-            if let error = error {
-                print("ERROR: \(String(describing: error.localizedDescription))")
-                return
-            }
+        guard let images = post?.images else {
+            return
+        }
             
-            guard let documents = snapshot?.documents else {
-                print("ERROR: Error fetching images from firestore")
-                return
-            }
-            
-            documents.forEach {doc in
-                let data = doc.data()
-                
-                guard let ref = data["url"] as? String else {
-                    print("ERROR: Invalid Image")
+        for (index, ref) in images.enumerated() {
+            let imageRef = self.storage.reference(forURL: ref)
+            imageRef.downloadURL { url, error in
+                if let error = error {
+                    print("ERROR: \(String(describing: error.localizedDescription))")
                     return
                 }
-                
-                guard let order = data["order"] as? Int else {
+                guard let url = url else {
                     return
                 }
+                    
+                self.imageURLs.append(ImageInfo(url: url, order: index))
                 
-                let imageRef = self.storage.reference(forURL: ref)
-
-                imageRef.downloadURL { url, error in
-                    if let error = error {
-                        print("ERROR: \(String(describing: error.localizedDescription))")
-                        return
+                DispatchQueue.main.async {
+                    self.imageURLs.sort {
+                        $0.order < $1.order
                     }
-                    guard let url = url else {
-                        return
-                    }
-                    
-                    self.imageURLs.append(ImageInfo(url: url, order: order))
-                    
-                    DispatchQueue.main.async {
-                        self.imageURLs.sort {
-                            $0.order < $1.order
-                        }
-                        self.collectionView.reloadData()
-                    }
+                    self.collectionView.reloadData()
                 }
             }
         }
     }
+
     
     private func dateToString(date: Date) -> String {
         let formatter = DateFormatter()

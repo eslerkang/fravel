@@ -20,6 +20,5 @@ class WritePostViewController: UIViewController {
     }
     
     @IBAction func tapWrtieButton(_ sender: UIButton) {
-        print("asdfasdf")
     }
 }

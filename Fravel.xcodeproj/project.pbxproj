@@ -16,6 +16,7 @@
 		4C429994286BC530001C3010 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429993286BC530001C3010 /* MainViewController.swift */; };
 		4C429996286BC5D3001C3010 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429995286BC5D3001C3010 /* MapViewController.swift */; };
 		4C429998286BC5DE001C3010 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429997286BC5DE001C3010 /* ProfileViewController.swift */; };
+		4C47912328A40EB0005AF1AE /* ShowTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47912228A40EB0005AF1AE /* ShowTypePicker.swift */; };
 		4C62D474286A7A2300B6F764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D473286A7A2300B6F764 /* AppDelegate.swift */; };
 		4C62D476286A7A2300B6F764 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D475286A7A2300B6F764 /* SceneDelegate.swift */; };
 		4C62D478286A7A2300B6F764 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D477286A7A2300B6F764 /* ViewController.swift */; };
@@ -58,6 +59,7 @@
 		4C429993286BC530001C3010 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4C429995286BC5D3001C3010 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4C429997286BC5DE001C3010 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		4C47912228A40EB0005AF1AE /* ShowTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTypePicker.swift; sourceTree = "<group>"; };
 		4C62D470286A7A2300B6F764 /* Fravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C62D473286A7A2300B6F764 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C62D475286A7A2300B6F764 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
 				4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */,
 				4C12CAD628A2550400B9085A /* WritePostViewController.swift */,
+				4C47912228A40EB0005AF1AE /* ShowTypePicker.swift */,
 			);
 			path = Fravel;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				4CF24676287992E500E233FC /* LocationInfo.swift in Sources */,
 				4C12CAD728A2550400B9085A /* WritePostViewController.swift in Sources */,
 				4CB38DB72893CC6F00D96084 /* PostDetailViewController.swift in Sources */,
+				4C47912328A40EB0005AF1AE /* ShowTypePicker.swift in Sources */,
 				4CB38DB52893CC4600D96084 /* PostListViewController.swift in Sources */,
 				4C250395286D19A90053575D /* TabBarViewController.swift in Sources */,
 				4CF24674287985B300E233FC /* NetworkCheck.swift in Sources */,

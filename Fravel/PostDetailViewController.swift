@@ -32,7 +32,6 @@ class PostDetailViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
 
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -48,7 +47,12 @@ class PostDetailViewController: UIViewController {
             return
         }
 
-        self.title = post.title
+        let titleView = UILabel()
+        titleView.numberOfLines = 0
+        titleView.textAlignment = .natural
+        titleView.text = post.title
+        titleView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        self.navigationItem.titleView = titleView
         self.contentTextView.text = post.content.replacingOccurrences(of: "\\n", with: "\n")
         self.authorLabel.text = post.userDisplayName
         self.dateLabel.text = dateToString(date: post.createdAt)

@@ -48,6 +48,11 @@ class PostDetailViewController: UIViewController {
     private func configureDeleteAlertView() {
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+            let loadingViewController = LoadingViewController()
+            loadingViewController.modalPresentationStyle = .overCurrentContext
+            loadingViewController.modalTransitionStyle = .crossDissolve
+            self.present(loadingViewController, animated: true)
+            
             guard let postId = self.post?.id else {return}
             self.images.forEach {
                 let ref = self.storage.reference(forURL: $0.ref)
@@ -64,7 +69,9 @@ class PostDetailViewController: UIViewController {
                     return
                 }
             }
-            self.navigationController?.popViewController(animated: true)
+            loadingViewController.dismiss(animated: true) {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
         
         deleteAlertView.addAction(cancelAction)

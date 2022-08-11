@@ -58,7 +58,7 @@ class PostListViewController: UITableViewController {
             .addSnapshotListener
         { [weak self] querySnapshot, error in
             guard let self = self else {return}
-            
+            self.posts = []
             if error != nil {
                 print("ERROR: \(String(describing: error))")
                 return
@@ -90,7 +90,7 @@ class PostListViewController: UITableViewController {
                     return
                 }
                 
-                self.db.collection("users").document(userId).getDocument { snapshot, error in
+                self.db.collection("users").document(userId).addSnapshotListener { snapshot, error in
                     if let error = error {
                         print("ERROR: \(String(describing: error.localizedDescription))")
                         self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)", images: images))

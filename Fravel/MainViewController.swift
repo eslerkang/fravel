@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
                         }
                         
             
-                        self.db.collection("users").document(userId).getDocument { snapshot, error in
+                        self.db.collection("users").document(userId).addSnapshotListener { snapshot, error in
                             if let error = error {
                                 print("ERROR: \(String(describing: error.localizedDescription))")
                                 self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images)

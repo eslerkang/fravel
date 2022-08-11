@@ -136,7 +136,10 @@ class WritePostViewController: UIViewController {
     }
     
     @IBAction func tapPostButton(_ sender: UIButton) {
-        self.postButton.isEnabled = false
+        let loadingViewController = LoadingViewController()
+        loadingViewController.modalPresentationStyle = .overCurrentContext
+        loadingViewController.modalTransitionStyle = .crossDissolve
+        present(loadingViewController, animated: true)
         guard let title = titleField.text,
               let content = contentTextView.text,
               let userId = Auth.auth().currentUser?.uid,
@@ -144,30 +147,49 @@ class WritePostViewController: UIViewController {
         else {
             return
         }
+        let typeRef = self.db.collection("types").document(type)
         var uploadedImageRefs = [String]()
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        uploadedImages.forEach {
-            let imageName = "\(UUID().uuidString).png"
-            let ref = storage.reference().child("images").child(userId).child(imageName)
-            guard let uploadData = $0.jpegData(compressionQuality: 0.5) else { return }
-            let uploadTask = ref.putData(uploadData, metadata: metadata)
-            uploadTask.observe(.success) { snapshot in
-                uploadedImageRefs.append("gs://\(ref.bucket)/\(ref.fullPath)")
-                if uploadedImageRefs.count == self.uploadedImages.count {
-                    let typeRef = self.db.collection("types").document(type)
-                    if type != "everyonesFoot" {
-                        self.db.collection("posts").addDocument(data: [
-                            "title": title,
-                            "content": content,
-                            "userId": userId,
-                            "images": uploadedImageRefs,
-                            "type": typeRef,
-                            "createdAt": Date()
-                        ])
+        if !uploadedImageRefs.isEmpty {
+            uploadedImages.forEach {
+                let imageName = "\(UUID().uuidString).png"
+                let ref = storage.reference().child("images").child(userId).child(imageName)
+                guard let uploadData = $0.jpegData(compressionQuality: 0.5) else { return }
+                let uploadTask = ref.putData(uploadData, metadata: metadata)
+                uploadTask.observe(.success) { snapshot in
+                    uploadedImageRefs.append("gs://\(ref.bucket)/\(ref.fullPath)")
+                    if uploadedImageRefs.count == self.uploadedImages.count {
+                        if type != "everyonesFoot" {
+                            self.db.collection("posts").addDocument(data: [
+                                "title": title,
+                                "content": content,
+                                "userId": userId,
+                                "images": uploadedImageRefs,
+                                "type": typeRef,
+                                "createdAt": Date()
+                            ])
+                        }
+                        DispatchQueue.main.async {
+                            loadingViewController.dismiss(animated: true) {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        }
                     }
-                    self.navigationController?.popViewController(animated: true)
                 }
+            }
+        } else {
+            if type != "everyonesFoot" {
+                self.db.collection("posts").addDocument(data: [
+                    "title": title,
+                    "content": content,
+                    "userId": userId,
+                    "type": typeRef,
+                    "createdAt": Date()
+                ])
+            }
+            loadingViewController.dismiss(animated: true) {
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }

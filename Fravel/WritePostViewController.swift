@@ -166,7 +166,7 @@ class WritePostViewController: UIViewController {
                             "createdAt": Date()
                         ])
                     }
-                    self.dismiss(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }

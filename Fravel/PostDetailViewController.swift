@@ -10,15 +10,18 @@ import FirebaseFirestore
 import Kingfisher
 import MapKit
 import FirebaseStorage
+import FirebaseAuth
 
 
 class PostDetailViewController: UIViewController {
-    @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
+    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var topStackView: UIStackView!
+    @IBOutlet weak var modifyStackView: UIStackView!
+    let deleteAlertView = UIAlertController(title: "게시글 삭제", message: "정말 이 게시글을 삭제하시겠습니까?", preferredStyle: .alert)
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -26,7 +29,7 @@ class PostDetailViewController: UIViewController {
     var postType: PostType?
     var post: Post?
     
-    var imageURLs = [ImageInfo]()
+    var images = [ImageInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +39,48 @@ class PostDetailViewController: UIViewController {
         collectionView.delegate = self
         
         configurePage()
+        configureModifyStackView()
+        configureDeleteAlertView()
         
         getImages()
+    }
+    
+    private func configureDeleteAlertView() {
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+            guard let postId = self.post?.id else {return}
+            self.images.forEach {
+                let ref = self.storage.reference(forURL: $0.ref)
+                ref.delete() { error in
+                    if let error = error {
+                        print("ERROR: \(String(describing: error.localizedDescription))")
+                        return
+                    }
+                }
+            }
+            self.db.collection("posts").document(postId).delete() { error in
+                if let error = error {
+                    print("ERROR: \(String(describing: error.localizedDescription))")
+                    return
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        deleteAlertView.addAction(cancelAction)
+        deleteAlertView.addAction(deleteAction)
+    }
+    
+    private func configureModifyStackView() {
+        guard let postUserId = post?.userId,
+              let currentUserId = Auth.auth().currentUser?.uid
+        else {
+            return
+        }
+        
+        if postUserId == currentUserId {
+            modifyStackView.isHidden = false
+        }
     }
     
     func configurePage() {
@@ -53,7 +96,8 @@ class PostDetailViewController: UIViewController {
         titleView.text = post.title
         titleView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         self.navigationItem.titleView = titleView
-        self.contentTextView.text = post.content.replacingOccurrences(of: "\\n", with: "\n")
+        self.contentLabel.text = post.content.replacingOccurrences(of: "\\n", with: "\n")
+
         self.authorLabel.text = post.userDisplayName
         self.dateLabel.text = dateToString(date: post.createdAt)
         
@@ -85,6 +129,12 @@ class PostDetailViewController: UIViewController {
     
     func getImages() {
         guard let images = post?.images else {
+            collectionView.isHidden = true
+            return
+        }
+        
+        if images.isEmpty {
+            collectionView.isHidden = true
             return
         }
             
@@ -99,10 +149,10 @@ class PostDetailViewController: UIViewController {
                     return
                 }
                     
-                self.imageURLs.append(ImageInfo(url: url, order: index))
+                self.images.append(ImageInfo(ref: ref, url: url, order: index))
                 
                 DispatchQueue.main.async {
-                    self.imageURLs.sort {
+                    self.images.sort {
                         $0.order < $1.order
                     }
                     self.collectionView.reloadData()
@@ -115,17 +165,21 @@ class PostDetailViewController: UIViewController {
     private func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
         
-        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.dateFormat = "yyyy.MM.dd\nHH시 mm분"
         formatter.locale = Locale(identifier: "ko_KR")
         
         return formatter.string(from: date)
+    }
+    
+    @IBAction func tapDeleteButton(_ sender: UIButton) {
+        present(deleteAlertView, animated: true)
     }
 }
 
 
 extension PostDetailViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageURLs.count
+        return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -135,10 +189,11 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
 
-        cell.imageView.kf.setImage(with: imageURLs[indexPath.row].url)
+        cell.imageView.kf.setImage(with: images[indexPath.row].url)
         cell.imageView.contentMode = .scaleAspectFit
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.lightGray.cgColor
+        cell.layer.cornerRadius = 5
         
         return cell
     }
@@ -150,7 +205,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageDetailViewController = storyboard?.instantiateViewController(withIdentifier: "ImageDetailViewController") as! ImageDetailViewController
         
-        imageDetailViewController.imageURL = imageURLs[indexPath.row].url
+        imageDetailViewController.imageURL = images[indexPath.row].url
         self.present(imageDetailViewController, animated: true)
     }
 }

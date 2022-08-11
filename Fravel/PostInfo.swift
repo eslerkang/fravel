@@ -28,6 +28,7 @@ struct PostType {
 
 
 struct ImageInfo {
+    let ref: String
     let url: URL
     let order: Int
 }

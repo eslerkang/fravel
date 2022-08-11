@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseFirestore
 import PhotosUI
+import FirebaseStorage
+import FirebaseAuth
 
 
 class WritePostViewController: UIViewController {
@@ -17,13 +19,19 @@ class WritePostViewController: UIViewController {
     @IBOutlet weak var showTypePicker: ShowTypePicker!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var myFootPrintStackView: UIStackView!
+    @IBOutlet weak var showMyFootPrintPicker: UITextField!
     let typePicker = UIPickerView()
+    let myFootPrintPicker = UIPickerView()
+    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
     var imagePicker: PHPickerViewController?
     
     var postTypes = [PostType]()
+    var selectedPostType: PostType?
     var uploadedImages = [UIImage]()
     
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +43,8 @@ class WritePostViewController: UIViewController {
         configureContentTextView()
         configurePHPickerController()
         configureImageCollectionView()
+        configureMyFootPrintPicker()
+        configureTextFields()
         
         getPostTypes()
     }
@@ -64,12 +74,18 @@ class WritePostViewController: UIViewController {
             DispatchQueue.main.async {
                 self.typePicker.reloadAllComponents()
                 self.showTypePicker.isEnabled = true
+                self.showTypePicker.text = self.postTypes.first?.name
+                self.selectedPostType = self.postTypes.first
             }
         }
     }
     
     private func configureScrollView() {
         scrollView.delegate = self
+    }
+    
+    private func configureTextFields() {
+        self.titleField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
     
     private func configureImageCollectionView() {
@@ -92,6 +108,24 @@ class WritePostViewController: UIViewController {
         
         showTypePicker.inputView = typePicker
         showTypePicker.tintColor = .clear
+        
+        let typeSelectButton = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(tapTypeSelectButton(_:)))
+        toolBar.setItems([typeSelectButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        
+        showTypePicker.inputAccessoryView = toolBar
+    }
+    
+    private func configureMyFootPrintPicker() {
+        myFootPrintPicker.delegate = self
+        myFootPrintPicker.dataSource = self
+        
+        showMyFootPrintPicker.inputView = myFootPrintPicker
+        showMyFootPrintPicker.tintColor = .clear
+                
+        showMyFootPrintPicker.inputAccessoryView = toolBar
+        
+        self.myFootPrintStackView.isHidden = true
     }
     
     private func configureContentTextView() {
@@ -101,16 +135,60 @@ class WritePostViewController: UIViewController {
         self.contentTextView.layer.cornerRadius = 5
     }
     
-    @IBAction func tapPostButton(_ sender: UIBarButtonItem) {
-        
+    @IBAction func tapPostButton(_ sender: UIButton) {
+        self.postButton.isEnabled = false
+        guard let title = titleField.text,
+              let content = contentTextView.text,
+              let userId = Auth.auth().currentUser?.uid,
+              let type = selectedPostType?.id
+        else {
+            return
+        }
+        var uploadedImageRefs = [String]()
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        uploadedImages.forEach {
+            let imageName = "\(UUID().uuidString).png"
+            let ref = storage.reference().child("images").child(userId).child(imageName)
+            guard let uploadData = $0.jpegData(compressionQuality: 0.5) else { return }
+            let uploadTask = ref.putData(uploadData, metadata: metadata)
+            uploadTask.observe(.success) { snapshot in
+                uploadedImageRefs.append("gs://\(ref.bucket)/\(ref.fullPath)")
+                if uploadedImageRefs.count == self.uploadedImages.count {
+                    let typeRef = self.db.collection("types").document(type)
+                    if type != "everyonesFoot" {
+                        self.db.collection("posts").addDocument(data: [
+                            "title": title,
+                            "content": content,
+                            "userId": userId,
+                            "images": uploadedImageRefs,
+                            "type": typeRef,
+                            "createdAt": Date()
+                        ])
+                    }
+                    self.dismiss(animated: true)
+                }
+            }
+        }
     }
     
-    private func validateInputFields() {
-        self.postButton.isEnabled = !(self.titleField.text?.isEmpty ?? true) && !self.contentTextView.text.isEmpty
+    
+    @objc private func validateInputFields() {
+        self.postButton.isEnabled = !(self.titleField.text?.isEmpty ?? true) && !self.contentTextView.text.isEmpty && !(self.showTypePicker.text?.isEmpty ?? true) && ((!myFootPrintStackView.isHidden && !(showMyFootPrintPicker.text?.isEmpty ?? true)) || myFootPrintStackView.isHidden)
     }
     
     @IBAction func tapImageUploadButton(_ sender: Any) {
         self.present(imagePicker!, animated: true)
+    }
+    
+    @objc private func textFieldDidChanged(_ textField: UITextField) {
+        self.validateInputFields()
+    }
+    
+    @objc private func tapTypeSelectButton(_ uiBarButtonItem: UIBarButtonItem) {
+        showTypePicker.resignFirstResponder()
+        showMyFootPrintPicker.resignFirstResponder()
+        self.validateInputFields()
     }
 }
 
@@ -123,7 +201,13 @@ extension WritePostViewController: UITextViewDelegate {
 
 extension WritePostViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        postTypes.count
+        if pickerView == typePicker {
+            return postTypes.count
+        } else if pickerView == myFootPrintPicker {
+            return 0
+        }
+        
+        return 0
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -131,11 +215,23 @@ extension WritePostViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return postTypes[row].name
+        if pickerView == typePicker {
+            return postTypes[row].name
+        } else  if pickerView == myFootPrintPicker {
+            return ""
+        }
+        
+        return nil
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        showTypePicker.text = postTypes[row].name
+        if pickerView == typePicker {
+            selectedPostType = postTypes[row]
+            showTypePicker.text = postTypes[row].name
+            self.myFootPrintStackView.isHidden = selectedPostType?.id != "everyonesFoot"
+        } else  if pickerView == myFootPrintPicker {
+            
+        }
     }
 }
 
@@ -163,7 +259,6 @@ extension WritePostViewController: PHPickerViewControllerDelegate {
                     self.uploadedImages.append(image)
                     DispatchQueue.main.async {
                         self.imageCollectionView.reloadData()
-                        print(self.uploadedImages)
                     }
                 }
             }
@@ -206,5 +301,6 @@ extension WritePostViewController: UICollectionViewDelegateFlowLayout, UICollect
 extension WritePostViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
+        self.validateInputFields()
     }
 }

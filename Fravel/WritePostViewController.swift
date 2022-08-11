@@ -151,7 +151,7 @@ class WritePostViewController: UIViewController {
         var uploadedImageRefs = [String]()
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        if !uploadedImageRefs.isEmpty {
+        if !uploadedImages.isEmpty {
             uploadedImages.forEach {
                 let imageName = "\(UUID().uuidString).png"
                 let ref = storage.reference().child("images").child(userId).child(imageName)

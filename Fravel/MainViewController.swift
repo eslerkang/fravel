@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
+        self.navigationController?.navigationBar.topItem?.title = ""
         
         db.collection("types").order(by: "order").addSnapshotListener { querySnapshot, error in
             if error != nil {
@@ -46,15 +47,14 @@ class MainViewController: UIViewController {
                 guard let name = data["name"] as? String else {return nil}
                 return PostType(id: id, name: name)
             }
-            
-            self.tableViewData = []
-            
+                        
             for (index, postType) in self.postTypes.enumerated() {
                 self.tableViewData.append([])
                 
                 let id = postType.id
                 
                 self.db.collection("posts").whereField("type", isEqualTo: self.db.document("/types/\(id)")).order(by: "createdAt", descending: true).limit(to: 5).addSnapshotListener { querySnapshot, error in
+                    self.tableViewData[index] = []
                     if error != nil {
                         print("ERROR: \(String(describing: error))")
                         return
@@ -65,7 +65,7 @@ class MainViewController: UIViewController {
                         return
                     }
                     
-                    let posts = documents.compactMap { doc -> Post? in
+                    documents.forEach { doc in
                         let data = doc.data()
                         let type = id
                         let id = doc.documentID
@@ -76,23 +76,42 @@ class MainViewController: UIViewController {
                             let createdAt = (data["createdAt"] as? Timestamp)?.dateValue()
                         else {
                             print("ERROR: Invalid Post")
-                            return nil
+                            return
                         }
                         
-                        let userId = data["userId"] as? String
-
-                        return Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt)
+                        let images = data["images"] as? [String]
+                        
+                        guard let userId = data["userId"] as? String else {
+                            self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images))
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                            return
+                        }
+                        
+            
+                        self.db.collection("users").document(userId).addSnapshotListener { snapshot, error in
+                            if let error = error {
+                                print("ERROR: \(String(describing: error.localizedDescription))")
+                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images)
+                                return
+                            }
+                            
+                            if let document = snapshot, document.exists {
+                                let data = document.data()
+                                guard let displayname = data?["displayname"] as? String else {
+                                    self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images)
+                                    return
+                                }
+                                
+                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images)
+                            } else {
+                                print("ERROR: Document does not exist")
+                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images)
+                                return
+                            }
+                        }
                     }
-                    
-                    self.tableViewData[index] = posts
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
                 }
             }
         }
@@ -100,8 +119,14 @@ class MainViewController: UIViewController {
         setupTableView()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    func appendPost(index: Int, id: String, title: String, content: String, userId: String?, type: String, createdAt: Date, userDisplayName: String?, images: [String]?) {
+        self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: userDisplayName, images: images))
+        self.tableViewData[index].sort {
+            $0.createdAt > $1.createdAt
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func setupTableView() {
@@ -119,6 +144,11 @@ class MainViewController: UIViewController {
         
         return formatter.string(from: date)
     }
+    
+    @IBAction func tapWritePostButton(_ sender: UIButton) {
+        let writePostViewController = storyboard?.instantiateViewController(withIdentifier: "WritePostViewController") as! WritePostViewController
+        self.show(writePostViewController, sender: nil)
+    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -128,18 +158,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let post = self.tableViewData[indexPath.section][indexPath.row]
-        switch self.postTypes[indexPath.section].name {
-        case "공지사항":
+        switch self.postTypes[indexPath.section].id {
+        case "notice":
             guard let cell = tableView.dequeueReusableCell(withIdentifier: noticeCellId, for: indexPath) as? NoticeTableViewCell else {return UITableViewCell()}
-            cell.selectionStyle = .none
-            cell.titleTextLabel.text = post.title
-            cell.dateTextLabel.text = dateToString(date: post.createdAt)
+            cell.configurePost(post: post)
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: defaultCellId, for: indexPath) as? DefaultTableViewCell else {return UITableViewCell()}
-            cell.selectionStyle = .none
-            cell.titleTextLabel.text = post.title
-            cell.dateTextLabel.text = dateToString(date: post.createdAt)
+            cell.configurePost(post: post)
             return cell
         }
     }
@@ -164,6 +190,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         stackView.backgroundColor = .systemMint
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.cornerRadius = 15
         
         let sectionButton = UIButton()
         sectionButton.setTitle(String(postTypes[section].name), for: .normal)
@@ -192,7 +219,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        debugPrint(indexPath.section, indexPath.row)
+        let postType = postTypes[indexPath.section]
+        let post = tableViewData[indexPath.section][indexPath.row]
+        guard let postDetailViewController = storyboard?.instantiateViewController(withIdentifier: "PostDetailViewController") as? PostDetailViewController else {return}
+        postDetailViewController.post = post
+        postDetailViewController.postType = postType
+        show(postDetailViewController, sender: nil)
     }
     
     @objc
@@ -220,7 +252,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc
     private func moveToSectionBoard(sender: UIButton) {
-        debugPrint(self.postTypes[sender.tag])
-        print(self.tableViewData)
+        guard let postListViewController = self.storyboard?.instantiateViewController(withIdentifier: "PostListViewController") as? PostListViewController else {
+            return
+        }
+        let postType = self.postTypes[sender.tag] as PostType
+        postListViewController.postType = postType
+        self.show(postListViewController, sender: nil)
     }
 }

@@ -19,4 +19,18 @@ class NoticeTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    func configurePost(post: Post) {
+        self.titleTextLabel.text = post.title
+        self.dateTextLabel.text = dateToString(date: post.createdAt)
+        self.selectionStyle = .none
+    }
+    
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.locale = Locale(identifier: "ko_KR")
+        
+        return formatter.string(from: date)
+    }
 }

@@ -16,10 +16,19 @@ struct Post {
     let userId: String?
     let type: String
     let createdAt: Date
+    let userDisplayName: String?
+    let images: [String]?
 }
 
 
 struct PostType {
     let id: String
     let name: String
+}
+
+
+struct ImageInfo {
+    let ref: String
+    let url: URL
+    let order: Int
 }

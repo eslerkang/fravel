@@ -13,6 +13,7 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var imageURL: URL?
+    var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +22,10 @@ class ImageDetailViewController: UIViewController {
     }
     
     func configureImageView() {
-        guard let imageURL = imageURL else {
-            return
+        if let imageURL = imageURL {
+            imageView.kf.setImage(with: imageURL)
+        } else if let image = image {
+            imageView.image = image
         }
-        
-        imageView.kf.setImage(with: imageURL)
     }
 }

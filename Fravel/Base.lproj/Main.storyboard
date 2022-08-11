@@ -499,7 +499,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0c1-b3-tZk" customClass="ShowTypePicker" customModule="Fravel" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="40.5" width="374" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ege-jU-h9b">
                                                         <rect key="frame" x="0.0" y="94.5" width="374" height="20.5"/>
@@ -510,7 +510,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p28-yd-Nkh">
                                                         <rect key="frame" x="0.0" y="135" width="374" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPk-lG-egu">
                                                         <rect key="frame" x="0.0" y="189" width="374" height="20.5"/>
@@ -526,7 +526,7 @@
                                                         </constraints>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                                     </textView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5vk-yY-dJN">
                                                         <rect key="frame" x="0.0" y="449.5" width="374" height="31"/>
@@ -560,18 +560,25 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ImageCollectionViewCell" id="v9G-Za-8Lw" customClass="ImageCollectionViewCell" customModule="Fravel" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="ImageCollectionViewCell" reuseIdentifier="ImageCollectionViewCell" id="v9G-Za-8Lw" customClass="ImageCollectionViewCell" customModule="Fravel" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="TK1-GQ-C0j">
                                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OKn-Ih-3yZ">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OKn-Ih-3yZ">
                                                                             <rect key="frame" x="30" y="36" width="240" height="128"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="200" id="3Kf-VR-bN2"/>
+                                                                                <constraint firstAttribute="width" constant="300" id="CBE-tt-EM1"/>
+                                                                            </constraints>
                                                                         </imageView>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="OKn-Ih-3yZ" firstAttribute="centerY" secondItem="TK1-GQ-C0j" secondAttribute="centerY" id="ToI-N7-9tV"/>
+                                                                        <constraint firstItem="OKn-Ih-3yZ" firstAttribute="centerX" secondItem="TK1-GQ-C0j" secondAttribute="centerX" id="z9S-25-Hep"/>
+                                                                    </constraints>
                                                                 </collectionViewCellContentView>
                                                                 <connections>
                                                                     <outlet property="imageView" destination="OKn-Ih-3yZ" id="DYa-yI-JB5"/>
@@ -629,6 +636,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentTextView" destination="fmj-U4-REv" id="AyM-b2-aKx"/>
+                        <outlet property="imageCollectionView" destination="Pg0-Uw-Zog" id="u8S-Zt-a2d"/>
                         <outlet property="postButton" destination="a2d-dS-spr" id="ANA-tZ-laN"/>
                         <outlet property="scrollView" destination="Iq4-LY-A6c" id="d3K-tH-v5B"/>
                         <outlet property="showTypePicker" destination="0c1-b3-tZk" id="Wbf-4D-XJn"/>

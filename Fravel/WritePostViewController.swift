@@ -16,10 +16,12 @@ class WritePostViewController: UIViewController {
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var showTypePicker: ShowTypePicker!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     let typePicker = UIPickerView()
     var imagePicker: PHPickerViewController?
     
     var postTypes = [PostType]()
+    var uploadedImages = [UIImage]()
     
     let db = Firestore.firestore()
     
@@ -32,6 +34,7 @@ class WritePostViewController: UIViewController {
         configureTypePicker()
         configureContentTextView()
         configurePHPickerController()
+        configureImageCollectionView()
         
         getPostTypes()
     }
@@ -65,18 +68,22 @@ class WritePostViewController: UIViewController {
         }
     }
     
+    private func configureScrollView() {
+        scrollView.delegate = self
+    }
+    
+    private func configureImageCollectionView() {
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+    }
+    
     private func configurePHPickerController() {
         var imagePickerConfig = PHPickerConfiguration()
-        imagePickerConfig.filter = .any(of: [.images, .livePhotos])
+        imagePickerConfig.filter = .any(of: [.images])
         imagePickerConfig.selectionLimit = 3
         
         imagePicker = PHPickerViewController(configuration: imagePickerConfig)
         imagePicker?.delegate = self
-    }
-    
-    private func configureScrollView() {
-        let touch = UITapGestureRecognizer(target: self, action: #selector(singleTapGestureCaptured(gesture:)))
-        scrollView.addGestureRecognizer(touch)
     }
     
     private func configureTypePicker() {
@@ -100,10 +107,6 @@ class WritePostViewController: UIViewController {
     
     private func validateInputFields() {
         self.postButton.isEnabled = !(self.titleField.text?.isEmpty ?? true) && !self.contentTextView.text.isEmpty
-    }
-    
-    @objc func singleTapGestureCaptured(gesture: UITapGestureRecognizer) {
-        self.view.endEditing(true)
     }
     
     @IBAction func tapImageUploadButton(_ sender: Any) {
@@ -139,8 +142,69 @@ extension WritePostViewController: UIPickerViewDelegate, UIPickerViewDataSource 
 
 extension WritePostViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        imagePicker?.dismiss(animated: true)
+        self.uploadedImages = []
         
-        print(results)
+        picker.dismiss(animated: true)
+        
+        results.forEach {
+            let itemProvider = $0.itemProvider
+            
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    if let error = error {
+                        print("ERROR: \(String(describing: error.localizedDescription))")
+                        return
+                    }
+                    
+                    guard let image = image as? UIImage else {
+                        return
+                    }
+                    
+                    self.uploadedImages.append(image)
+                    DispatchQueue.main.async {
+                        self.imageCollectionView.reloadData()
+                        print(self.uploadedImages)
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+extension WritePostViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return uploadedImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
+        cell.imageView.image = uploadedImages[indexPath.row]
+        cell.imageView.contentMode = .scaleAspectFit
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor.lightGray.cgColor
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let imageDetailViewController = storyboard?.instantiateViewController(withIdentifier: "ImageDetailViewController") as! ImageDetailViewController
+        
+        imageDetailViewController.image = uploadedImages[indexPath.row]
+        self.present(imageDetailViewController, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 200)
+    }
+}
+
+
+extension WritePostViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
     }
 }

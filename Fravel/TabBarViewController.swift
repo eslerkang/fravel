@@ -15,5 +15,6 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .light
+        self.selectedIndex = 1
     }
 }

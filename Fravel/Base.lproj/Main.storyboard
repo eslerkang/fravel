@@ -24,16 +24,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fravel" translatesAutoresizingMaskIntoConstraints="NO" id="b5B-lD-iZp">
-                                <rect key="frame" x="50" y="172.5" width="314" height="198.5"/>
+                                <rect key="frame" x="50" y="167" width="314" height="210"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="210" id="Hun-Ct-j7g"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전세계를 누비는 우리의 여행 발자국" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5J-Fb-smg">
-                                <rect key="frame" x="97" y="391" width="220.5" height="72"/>
+                                <rect key="frame" x="97" y="397" width="220.5" height="72"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.59215686274509804" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="JdR-Hf-aJT">
-                                <rect key="frame" x="80" y="563" width="254" height="160"/>
+                                <rect key="frame" x="80" y="569" width="254" height="160"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGm-fU-zYa">
                                         <rect key="frame" x="0.0" y="0.0" width="254" height="60"/>
@@ -97,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NGL-Jf-t9u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="361"/>
+            <point key="canvasLocation" x="-26.086956521739133" y="360.9375"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="1kD-1N-xyX">

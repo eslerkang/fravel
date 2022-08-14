@@ -8,9 +8,14 @@
 import Foundation
 import CoreLocation
 
-struct LocationInfo: Codable {
+struct LocationInfo {
     let latitude: String
     let longitude: String
-    let id: Int?
-    let timestamp: Date
+    let createdAt: Date
+    let location: CLLocation
+}
+
+struct Map {
+    let status: String
+    let locations: [LocationInfo]
 }

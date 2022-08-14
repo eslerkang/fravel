@@ -159,7 +159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="649-My-o3R">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="719"/>
                             </mapView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인터넷 연결 없음" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbC-R3-QJY">
                                 <rect key="frame" x="0.0" y="44" width="414" height="50"/>
@@ -171,12 +171,48 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="r2f-mY-uIh">
+                                <rect key="frame" x="0.0" y="763" width="414" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CzI-zV-Woq">
+                                        <rect key="frame" x="0.0" y="9.5" width="138" height="31"/>
+                                        <color key="tintColor" systemColor="systemGreenColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapStartButton:" destination="jOy-5r-cmt" eventType="touchUpInside" id="CX7-cO-sKY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKQ-XP-Bi2">
+                                        <rect key="frame" x="138" y="9.5" width="138" height="31"/>
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="pause.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapPauseButton:" destination="jOy-5r-cmt" eventType="touchUpInside" id="h5t-lI-4iF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIo-V7-hj0">
+                                        <rect key="frame" x="276" y="9.5" width="138" height="31"/>
+                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="stop.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapStopButton:" destination="jOy-5r-cmt" eventType="touchUpInside" id="hpQ-4m-pjT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sr4-ys-HOM"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="sr4-ys-HOM" firstAttribute="bottom" secondItem="649-My-o3R" secondAttribute="bottom" id="L8d-bK-m0S"/>
+                            <constraint firstItem="r2f-mY-uIh" firstAttribute="leading" secondItem="sr4-ys-HOM" secondAttribute="leading" id="38n-6b-sfx"/>
+                            <constraint firstItem="sr4-ys-HOM" firstAttribute="trailing" secondItem="r2f-mY-uIh" secondAttribute="trailing" id="BcR-8t-MpV"/>
+                            <constraint firstItem="r2f-mY-uIh" firstAttribute="top" secondItem="649-My-o3R" secondAttribute="bottom" id="E4x-rx-Rfv"/>
+                            <constraint firstItem="sr4-ys-HOM" firstAttribute="bottom" secondItem="649-My-o3R" secondAttribute="bottom" constant="50" id="L8d-bK-m0S"/>
+                            <constraint firstItem="sr4-ys-HOM" firstAttribute="bottom" secondItem="r2f-mY-uIh" secondAttribute="bottom" id="NXa-Ud-OfY"/>
                             <constraint firstItem="649-My-o3R" firstAttribute="top" secondItem="sr4-ys-HOM" secondAttribute="top" id="QpM-rw-gzn"/>
                             <constraint firstItem="sr4-ys-HOM" firstAttribute="trailing" secondItem="hbC-R3-QJY" secondAttribute="trailing" id="Up5-3u-78M"/>
                             <constraint firstItem="649-My-o3R" firstAttribute="leading" secondItem="sr4-ys-HOM" secondAttribute="leading" id="fUe-c4-jp7"/>
@@ -189,6 +225,9 @@
                     <connections>
                         <outlet property="mapView" destination="649-My-o3R" id="s22-7z-dHg"/>
                         <outlet property="noInternetLabel" destination="hbC-R3-QJY" id="zbM-Qk-k95"/>
+                        <outlet property="pauseButton" destination="TKQ-XP-Bi2" id="pZ9-Et-sOZ"/>
+                        <outlet property="startButton" destination="CzI-zV-Woq" id="CuH-tK-7Ng"/>
+                        <outlet property="stopButton" destination="nIo-V7-hj0" id="ea6-hb-ik5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4va-YL-kXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -750,13 +789,19 @@
         <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
+        <image name="pause.fill" catalog="system" width="116" height="128"/>
         <image name="pencil.tip.crop.circle.badge.plus" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="stop.fill" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

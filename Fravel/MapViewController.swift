@@ -44,6 +44,7 @@ class MapViewController: UIViewController {
         configureNotificationCenter()
         configureStopAlertView()
         configureStartAlertView()
+        configureInitialButtons()
         
         getMap()
     }
@@ -200,6 +201,12 @@ class MapViewController: UIViewController {
         self.locationManager.pausesLocationUpdatesAutomatically = false
         self.locationManager.distanceFilter = 10
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func configureInitialButtons() {
+        [startButton, pauseButton, stopButton].forEach {
+            $0?.isEnabled = false
+        }
     }
     
     func showCurrentLocation() {

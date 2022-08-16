@@ -94,6 +94,21 @@ class PostDetailViewController: UIViewController {
 
                 return LocationInfo(latitude: latitudeString, longitude: longitudeString, createdAt: createdAt, location: location)
             }
+            
+            guard let firstLocation = self.locations.first?.location else {return}
+            
+            self.mapView.setRegion(
+                MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(
+                        latitude: firstLocation.coordinate.latitude,
+                        longitude: firstLocation.coordinate.longitude
+                    ),
+                    span: MKCoordinateSpan(
+                        latitudeDelta: 0.2,
+                        longitudeDelta: 0.2)
+                ),
+                animated: true
+            )
         }
     }
     

@@ -16,11 +16,11 @@ class WritePostViewController: UIViewController {
     @IBOutlet weak var postButton: UIBarButtonItem!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
-    @IBOutlet weak var showTypePicker: ShowTypePicker!
+    @IBOutlet weak var showTypePicker: ShowPicker!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var myFootPrintStackView: UIStackView!
-    @IBOutlet weak var showMyFootPrintPicker: UITextField!
+    @IBOutlet weak var showMyFootPrintPicker: ShowPicker!
     let typePicker = UIPickerView()
     let myFootPrintPicker = UIPickerView()
     let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 44))

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C09E84428ABCA100067D5C1 /* MapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09E84328ABCA100067D5C1 /* MapDetailViewController.swift */; };
+		4C09E84828ABCAAD0067D5C1 /* ShowPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09E84728ABCAAD0067D5C1 /* ShowPicker.swift */; };
 		4C12CAD728A2550400B9085A /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C12CAD628A2550400B9085A /* WritePostViewController.swift */; };
 		4C250395286D19A90053575D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C250394286D19A90053575D /* TabBarViewController.swift */; };
 		4C298538286BB25600800D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C298537286BB25600800D0C /* GoogleService-Info.plist */; };
@@ -16,7 +18,6 @@
 		4C429994286BC530001C3010 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429993286BC530001C3010 /* MainViewController.swift */; };
 		4C429996286BC5D3001C3010 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429995286BC5D3001C3010 /* MapViewController.swift */; };
 		4C429998286BC5DE001C3010 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C429997286BC5DE001C3010 /* ProfileViewController.swift */; };
-		4C47912328A40EB0005AF1AE /* ShowTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47912228A40EB0005AF1AE /* ShowTypePicker.swift */; };
 		4C47B6C528A53498001B581F /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47B6C428A53498001B581F /* LoadingViewController.swift */; };
 		4C62D474286A7A2300B6F764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D473286A7A2300B6F764 /* AppDelegate.swift */; };
 		4C62D476286A7A2300B6F764 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D475286A7A2300B6F764 /* SceneDelegate.swift */; };
@@ -51,6 +52,8 @@
 		4C0009EC286BCFB600074A2E /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-ThinItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		4C0009ED286BCFB600074A2E /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Italic.ttf"; path = "../../../../Downloads/Roboto/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		4C0009EE286BCFB600074A2E /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-LightItalic.ttf"; path = "../../../../Downloads/Roboto/Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		4C09E84328ABCA100067D5C1 /* MapDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailViewController.swift; sourceTree = "<group>"; };
+		4C09E84728ABCAAD0067D5C1 /* ShowPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPicker.swift; sourceTree = "<group>"; };
 		4C12CAD628A2550400B9085A /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
 		4C250394286D19A90053575D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4C298537286BB25600800D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -60,7 +63,6 @@
 		4C429993286BC530001C3010 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4C429995286BC5D3001C3010 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4C429997286BC5DE001C3010 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		4C47912228A40EB0005AF1AE /* ShowTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTypePicker.swift; sourceTree = "<group>"; };
 		4C47B6C428A53498001B581F /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4C62D470286A7A2300B6F764 /* Fravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C62D473286A7A2300B6F764 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,41 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		4C09E84528ABCA200067D5C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4CF24675287992E500E233FC /* LocationInfo.swift */,
+				4CF24673287985B300E233FC /* NetworkCheck.swift */,
+				4CAFBB3128882A2A00D33351 /* PostInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4C09E84628ABCA2C0067D5C1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */,
+				4C09E84728ABCAAD0067D5C1 /* ShowPicker.swift */,
+				4C429991286BC4BD001C3010 /* LoginViewController.swift */,
+				4C429993286BC530001C3010 /* MainViewController.swift */,
+				4C429995286BC5D3001C3010 /* MapViewController.swift */,
+				4C429997286BC5DE001C3010 /* ProfileViewController.swift */,
+				4C250394286D19A90053575D /* TabBarViewController.swift */,
+				4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */,
+				4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */,
+				4CE7E5792888DF4E002BD955 /* DefaultTableViewCell.swift */,
+				4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */,
+				4CB38DB42893CC4600D96084 /* PostListViewController.swift */,
+				4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */,
+				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
+				4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */,
+				4C12CAD628A2550400B9085A /* WritePostViewController.swift */,
+				4C47B6C428A53498001B581F /* LoadingViewController.swift */,
+				4C09E84328ABCA100067D5C1 /* MapDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4C62D467286A7A2300B6F764 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +186,8 @@
 		4C62D472286A7A2300B6F764 /* Fravel */ = {
 			isa = PBXGroup;
 			children = (
+				4C09E84628ABCA2C0067D5C1 /* View */,
+				4C09E84528ABCA200067D5C1 /* Model */,
 				4C0009E2286BCF9E00074A2E /* Font */,
 				4CFCAB6E286BB6F800D2D777 /* Fravel.entitlements */,
 				4C62D473286A7A2300B6F764 /* AppDelegate.swift */,
@@ -159,26 +198,6 @@
 				4C62D47E286A7A2400B6F764 /* LaunchScreen.storyboard */,
 				4C62D481286A7A2400B6F764 /* Info.plist */,
 				4C298537286BB25600800D0C /* GoogleService-Info.plist */,
-				4C429991286BC4BD001C3010 /* LoginViewController.swift */,
-				4C429993286BC530001C3010 /* MainViewController.swift */,
-				4C429995286BC5D3001C3010 /* MapViewController.swift */,
-				4C429997286BC5DE001C3010 /* ProfileViewController.swift */,
-				4C250394286D19A90053575D /* TabBarViewController.swift */,
-				4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */,
-				4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */,
-				4CF24673287985B300E233FC /* NetworkCheck.swift */,
-				4CF24675287992E500E233FC /* LocationInfo.swift */,
-				4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */,
-				4CAFBB3128882A2A00D33351 /* PostInfo.swift */,
-				4CE7E5792888DF4E002BD955 /* DefaultTableViewCell.swift */,
-				4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */,
-				4CB38DB42893CC4600D96084 /* PostListViewController.swift */,
-				4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */,
-				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
-				4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */,
-				4C12CAD628A2550400B9085A /* WritePostViewController.swift */,
-				4C47912228A40EB0005AF1AE /* ShowTypePicker.swift */,
-				4C47B6C428A53498001B581F /* LoadingViewController.swift */,
 			);
 			path = Fravel;
 			sourceTree = "<group>";
@@ -314,7 +333,6 @@
 				4CF24676287992E500E233FC /* LocationInfo.swift in Sources */,
 				4C12CAD728A2550400B9085A /* WritePostViewController.swift in Sources */,
 				4CB38DB72893CC6F00D96084 /* PostDetailViewController.swift in Sources */,
-				4C47912328A40EB0005AF1AE /* ShowTypePicker.swift in Sources */,
 				4CB38DB52893CC4600D96084 /* PostListViewController.swift in Sources */,
 				4C250395286D19A90053575D /* TabBarViewController.swift in Sources */,
 				4CF24674287985B300E233FC /* NetworkCheck.swift in Sources */,
@@ -323,11 +341,13 @@
 				4CAFB29E28799DD3001B412C /* FootprintsAnnotation.swift in Sources */,
 				4C4134B1286E6E74006CB0A5 /* NoticeTableViewCell.swift in Sources */,
 				4C429996286BC5D3001C3010 /* MapViewController.swift in Sources */,
+				4C09E84828ABCAAD0067D5C1 /* ShowPicker.swift in Sources */,
 				4C62D478286A7A2300B6F764 /* ViewController.swift in Sources */,
 				4C47B6C528A53498001B581F /* LoadingViewController.swift in Sources */,
 				4C62D474286A7A2300B6F764 /* AppDelegate.swift in Sources */,
 				4C429998286BC5DE001C3010 /* ProfileViewController.swift in Sources */,
 				4C62D476286A7A2300B6F764 /* SceneDelegate.swift in Sources */,
+				4C09E84428ABCA100067D5C1 /* MapDetailViewController.swift in Sources */,
 				4C429994286BC530001C3010 /* MainViewController.swift in Sources */,
 				4CAFBB3228882A2A00D33351 /* PostInfo.swift in Sources */,
 				4CE7E57B2888DF4E002BD955 /* DefaultTableViewCell.swift in Sources */,
@@ -495,7 +515,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.eslerkang.Fravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -529,7 +549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.eslerkang.Fravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

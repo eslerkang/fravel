@@ -47,7 +47,7 @@ class PostDetailViewController: UIViewController {
     
     private func configureDeleteAlertView() {
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { _ in
             let loadingViewController = LoadingViewController()
             loadingViewController.modalPresentationStyle = .overCurrentContext
             loadingViewController.modalTransitionStyle = .crossDissolve
@@ -129,7 +129,6 @@ class PostDetailViewController: UIViewController {
         }
         
         if postType.id == "everyonesFoot" {
-            collectionView.isHidden = true
             mapView.isHidden = false
         }
     }

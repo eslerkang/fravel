@@ -27,7 +27,9 @@ class WritePostViewController: UIViewController {
     var imagePicker: PHPickerViewController?
     
     var postTypes = [PostType]()
+    var maps = [Map]()
     var selectedPostType: PostType?
+    var selectedMap: Map?
     var uploadedImages = [UIImage]()
     
     let db = Firestore.firestore()
@@ -47,37 +49,91 @@ class WritePostViewController: UIViewController {
         configureTextFields()
         
         getPostTypes()
+        getMaps()
+    }
+    
+    private func getMaps() {
+        guard let userId = Auth.auth().currentUser?.uid else {return}
+        self.showMyFootPrintPicker.isEnabled = false
+        db
+            .collection("maps")
+            .order(
+                by: "updatedAt",
+                descending: true
+            )
+            .whereField(
+                "userId",
+                isEqualTo: userId
+            )
+            .whereField(
+                "status",
+                isEqualTo: "done"
+            )
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else {return}
+                
+                if error != nil {
+                    print("ERROR: \(String(describing: error))")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("ERROR FireStore fetching document \(String(describing: error))")
+                    return
+                }
+                
+                self.maps = documents.compactMap { doc -> Map? in
+                    let data = doc.data()
+                    let id = doc.documentID
+                    guard let name = data["name"] as? String else {return nil}
+                    return Map(id: id, name: name, locations: nil)
+                }
+                
+                DispatchQueue.main.async {
+                    self.myFootPrintPicker.reloadAllComponents()
+                    self.showMyFootPrintPicker.isEnabled = true
+                    self.showMyFootPrintPicker.text = self.maps.first?.name
+                    self.selectedMap = self.maps.first
+                }
+            }
     }
     
     private func getPostTypes() {
         self.showTypePicker.isEnabled = false
-        db.collection("types").order(by: "order").whereField("editable", isEqualTo: true).addSnapshotListener {[weak self] snapshot, error in
-            guard let self = self else {return}
-            
-            if error != nil {
-                print("ERROR: \(String(describing: error))")
-                return
+        db
+            .collection("types")
+            .order(by: "order")
+            .whereField(
+                "editable",
+                isEqualTo: true
+            )
+            .addSnapshotListener {[weak self] snapshot, error in
+                guard let self = self else {return}
+                
+                if error != nil {
+                    print("ERROR: \(String(describing: error))")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("ERROR FireStore fetching document \(String(describing: error))")
+                    return
+                }
+                            
+                self.postTypes = documents.compactMap { doc -> PostType? in
+                    let data = doc.data()
+                    let id = doc.documentID
+                    guard let name = data["name"] as? String else {return nil}
+                    return PostType(id: id, name: name)
+                }
+                
+                DispatchQueue.main.async {
+                    self.typePicker.reloadAllComponents()
+                    self.showTypePicker.isEnabled = true
+                    self.showTypePicker.text = self.postTypes.first?.name
+                    self.selectedPostType = self.postTypes.first
+                }
             }
-            
-            guard let documents = snapshot?.documents else {
-                print("ERROR FireStore fetching document \(String(describing: error))")
-                return
-            }
-                        
-            self.postTypes = documents.compactMap { doc -> PostType? in
-                let data = doc.data()
-                let id = doc.documentID
-                guard let name = data["name"] as? String else {return nil}
-                return PostType(id: id, name: name)
-            }
-            
-            DispatchQueue.main.async {
-                self.typePicker.reloadAllComponents()
-                self.showTypePicker.isEnabled = true
-                self.showTypePicker.text = self.postTypes.first?.name
-                self.selectedPostType = self.postTypes.first
-            }
-        }
     }
     
     private func configureScrollView() {
@@ -160,7 +216,19 @@ class WritePostViewController: UIViewController {
                 uploadTask.observe(.success) { snapshot in
                     uploadedImageRefs.append("gs://\(ref.bucket)/\(ref.fullPath)")
                     if uploadedImageRefs.count == self.uploadedImages.count {
-                        if type != "everyonesFoot" {
+                        if type == "everyonesFoot" {
+                            guard let map = self.selectedMap?.id else {return}
+                            let mapRef = self.db.collection("maps").document(map)
+                            self.db.collection("posts").addDocument(data: [
+                                "title": title,
+                                "content": content,
+                                "userId": userId,
+                                "images": uploadedImageRefs,
+                                "type": typeRef,
+                                "createdAt": Date(),
+                                "map": mapRef
+                            ])
+                        } else {
                             self.db.collection("posts").addDocument(data: [
                                 "title": title,
                                 "content": content,
@@ -179,7 +247,18 @@ class WritePostViewController: UIViewController {
                 }
             }
         } else {
-            if type != "everyonesFoot" {
+            if type == "everyonesFoot" {
+                guard let map = self.selectedMap?.id else {return}
+                let mapRef = self.db.collection("maps").document(map)
+                self.db.collection("posts").addDocument(data: [
+                    "title": title,
+                    "content": content,
+                    "userId": userId,
+                    "type": typeRef,
+                    "createdAt": Date(),
+                    "map": mapRef
+                ])
+            } else {
                 self.db.collection("posts").addDocument(data: [
                     "title": title,
                     "content": content,
@@ -223,13 +302,14 @@ extension WritePostViewController: UITextViewDelegate {
 
 extension WritePostViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == typePicker {
+        switch pickerView {
+        case typePicker:
             return postTypes.count
-        } else if pickerView == myFootPrintPicker {
+        case myFootPrintPicker:
+            return maps.count
+        default:
             return 0
         }
-        
-        return 0
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -237,22 +317,27 @@ extension WritePostViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == typePicker {
+        switch pickerView {
+        case typePicker:
             return postTypes[row].name
-        } else  if pickerView == myFootPrintPicker {
-            return ""
+        case myFootPrintPicker:
+            return maps[row].name
+        default:
+            return nil
         }
-        
-        return nil
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == typePicker {
+        switch pickerView {
+        case typePicker:
             selectedPostType = postTypes[row]
             showTypePicker.text = postTypes[row].name
             self.myFootPrintStackView.isHidden = selectedPostType?.id != "everyonesFoot"
-        } else  if pickerView == myFootPrintPicker {
-            
+        case myFootPrintPicker:
+            selectedMap = maps[row]
+            showMyFootPrintPicker.text = maps[row].name
+        default:
+            return
         }
     }
 }

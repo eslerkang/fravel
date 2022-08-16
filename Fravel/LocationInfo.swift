@@ -16,6 +16,7 @@ struct LocationInfo {
 }
 
 struct Map {
-    let status: String
-    let locations: [LocationInfo]
+    let id: String
+    let name: String
+    let locations: [LocationInfo]?
 }

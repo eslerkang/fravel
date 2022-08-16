@@ -23,7 +23,9 @@ class WritePostViewController: UIViewController {
     @IBOutlet weak var showMyFootPrintPicker: ShowPicker!
     let typePicker = UIPickerView()
     let myFootPrintPicker = UIPickerView()
-    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
+    let toolBar = UIToolbar(
+        frame: CGRect(x: 0, y: 0, width: 100, height: 44)
+    )
     var imagePicker: PHPickerViewController?
     
     var postTypes = [PostType]()

@@ -21,6 +21,7 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var modifyStackView: UIStackView!
+    @IBOutlet weak var footprintView: UIView!
     let deleteAlertView = UIAlertController(title: "게시글 삭제", message: "정말 이 게시글을 삭제하시겠습니까?", preferredStyle: .alert)
     
     let db = Firestore.firestore()
@@ -60,9 +61,9 @@ class PostDetailViewController: UIViewController {
         
         guard let mapRef = post.map else {return}
         
-        self.mapView.isHidden = false
         self.mapView.delegate = self
         self.mapView.showsScale = true
+        self.footprintView.isHidden = false
         
         mapRef.getDocument { snapshot, error in
             if let error = error {
@@ -104,8 +105,8 @@ class PostDetailViewController: UIViewController {
                         longitude: firstLocation.coordinate.longitude
                     ),
                     span: MKCoordinateSpan(
-                        latitudeDelta: 0.2,
-                        longitudeDelta: 0.2)
+                        latitudeDelta: 0.001,
+                        longitudeDelta: 0.001)
                 ),
                 animated: true
             )
@@ -242,6 +243,14 @@ class PostDetailViewController: UIViewController {
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
         present(deleteAlertView, animated: true)
+    }
+    
+    @IBAction func tapShowMapDetailView(_ sender: UIButton) {
+        let mapDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MapDetailViewController") as! MapDetailViewController
+        
+        mapDetailViewController.locations = self.locations
+        
+        present(mapDetailViewController, animated: true)
     }
 }
 

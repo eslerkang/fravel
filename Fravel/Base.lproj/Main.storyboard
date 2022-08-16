@@ -401,12 +401,36 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
-                                                    <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="184-I7-o8u">
-                                                        <rect key="frame" x="0.0" y="290" width="374" height="300"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lH5-dJ-KJ8">
+                                                        <rect key="frame" x="0.0" y="290" width="374" height="340"/>
+                                                        <subviews>
+                                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="184-I7-o8u">
+                                                                <rect key="frame" x="0.0" y="40" width="374" height="300"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="WKq-h2-ov0"/>
+                                                                    <constraint firstAttribute="height" constant="300" id="zan-zl-HKR"/>
+                                                                </constraints>
+                                                            </mapView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-He-c2B">
+                                                                <rect key="frame" x="266" y="-1" width="113" height="31"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="발자국 크게보기"/>
+                                                                <connections>
+                                                                    <action selector="tapShowMapDetailView:" destination="7qI-45-Y3W" eventType="touchUpInside" id="inS-rg-upE"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="300" id="zan-zl-HKR"/>
+                                                            <constraint firstItem="1cY-He-c2B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lH5-dJ-KJ8" secondAttribute="leading" constant="20" symbolic="YES" id="Foq-9S-eo0"/>
+                                                            <constraint firstItem="184-I7-o8u" firstAttribute="top" secondItem="1cY-He-c2B" secondAttribute="bottom" constant="10" id="HMW-u5-5gM"/>
+                                                            <constraint firstItem="1cY-He-c2B" firstAttribute="trailing" secondItem="184-I7-o8u" secondAttribute="trailing" constant="5" id="a2P-du-iXS"/>
+                                                            <constraint firstItem="184-I7-o8u" firstAttribute="top" secondItem="lH5-dJ-KJ8" secondAttribute="top" constant="40" id="bWS-8L-JNN"/>
+                                                            <constraint firstItem="184-I7-o8u" firstAttribute="leading" secondItem="lH5-dJ-KJ8" secondAttribute="leading" id="oIQ-8B-nfw"/>
+                                                            <constraint firstAttribute="bottom" secondItem="184-I7-o8u" secondAttribute="bottom" id="pwH-65-EPh"/>
+                                                            <constraint firstAttribute="trailing" secondItem="184-I7-o8u" secondAttribute="trailing" id="sHv-yC-028"/>
                                                         </constraints>
-                                                    </mapView>
+                                                    </view>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -445,6 +469,7 @@
                         <outlet property="collectionView" destination="GE0-mm-gj4" id="tip-ja-ese"/>
                         <outlet property="contentLabel" destination="dW3-Th-PrU" id="zMz-I5-AbP"/>
                         <outlet property="dateLabel" destination="8qN-rc-YDm" id="9bt-ka-Kwq"/>
+                        <outlet property="footprintView" destination="lH5-dJ-KJ8" id="9en-HB-XhH"/>
                         <outlet property="mapView" destination="184-I7-o8u" id="9lC-gF-v5K"/>
                         <outlet property="modifyStackView" destination="0Wf-0A-E9G" id="cKS-wr-sTs"/>
                         <outlet property="topStackView" destination="CnR-8j-T3i" id="p3A-Pd-JZ0"/>
@@ -783,13 +808,83 @@
         <!--Map Detail View Controller-->
         <scene sceneID="bP6-2g-GkF">
             <objects>
-                <viewController id="ehm-7J-PTe" customClass="MapDetailViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapDetailViewController" id="ehm-7J-PTe" customClass="MapDetailViewController" customModule="Fravel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="goy-G9-adm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KzE-PH-xEp">
+                                <rect key="frame" x="0.0" y="54" width="414" height="808"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r61-Ho-2lH">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-Zd-p04">
+                                                <rect key="frame" x="10" y="0.0" width="404" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4o9-g1-zZN" customClass="ShowPicker" customModule="Fravel" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="273" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0e-Fl-y1N">
+                                                        <rect key="frame" x="278" y="0.0" width="37" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="tapLeftLocationButton:" destination="ehm-7J-PTe" eventType="touchUpInside" id="sRe-jM-quP"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mnu-6Q-lqY">
+                                                        <rect key="frame" x="320" y="0.0" width="37" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="tapRightLocationButton:" destination="ehm-7J-PTe" eventType="touchUpInside" id="yL9-6g-8qM"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ug7-1G-31A">
+                                                        <rect key="frame" x="362" y="0.0" width="42" height="30"/>
+                                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="tapCloseButton:" destination="ehm-7J-PTe" eventType="touchUpInside" id="tci-jV-dNS"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Cwe-Zd-p04" secondAttribute="bottom" id="5Gd-Ek-Mp7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cwe-Zd-p04" secondAttribute="trailing" id="HAu-yU-CeE"/>
+                                            <constraint firstAttribute="height" constant="30" id="Sqi-mf-0EA"/>
+                                            <constraint firstItem="Cwe-Zd-p04" firstAttribute="leading" secondItem="r61-Ho-2lH" secondAttribute="leading" constant="10" id="leV-uy-7Cq"/>
+                                            <constraint firstItem="Cwe-Zd-p04" firstAttribute="top" secondItem="r61-Ho-2lH" secondAttribute="top" id="qeT-lj-K5h"/>
+                                        </constraints>
+                                    </view>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gLO-qs-BzL">
+                                        <rect key="frame" x="0.0" y="40" width="414" height="768"/>
+                                    </mapView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="nT1-hc-b8c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KzE-PH-xEp" firstAttribute="bottom" secondItem="nT1-hc-b8c" secondAttribute="bottom" id="1Vh-gU-9qf"/>
+                            <constraint firstItem="KzE-PH-xEp" firstAttribute="leading" secondItem="nT1-hc-b8c" secondAttribute="leading" id="8P5-Uc-rHO"/>
+                            <constraint firstItem="nT1-hc-b8c" firstAttribute="trailing" secondItem="KzE-PH-xEp" secondAttribute="trailing" id="DxM-En-EBZ"/>
+                            <constraint firstItem="KzE-PH-xEp" firstAttribute="top" secondItem="nT1-hc-b8c" secondAttribute="top" constant="10" id="uaQ-Pe-koe"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="leftLocationButton" destination="M0e-Fl-y1N" id="G22-mQ-jIq"/>
+                        <outlet property="mapView" destination="gLO-qs-BzL" id="hlV-mS-ZBt"/>
+                        <outlet property="rightLocationButton" destination="mnu-6Q-lqY" id="P88-2q-T3k"/>
+                        <outlet property="showLocationPicker" destination="4o9-g1-zZN" id="beY-YX-5uo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrw-MZ-WJh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -799,6 +894,8 @@
     <resources>
         <image name="Fravel" width="198.66667175292969" height="198.66667175292969"/>
         <image name="applelogo" catalog="system" width="103" height="128"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="location.north.circle" catalog="system" width="128" height="121"/>
         <image name="logo_google" width="33.333332061767578" height="33.333332061767578"/>
@@ -809,6 +906,7 @@
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

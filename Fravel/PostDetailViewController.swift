@@ -30,6 +30,7 @@ class PostDetailViewController: UIViewController {
     var post: Post?
     
     var images = [ImageInfo]()
+    var locations = [LocationInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,59 @@ class PostDetailViewController: UIViewController {
         configurePage()
         configureModifyStackView()
         configureDeleteAlertView()
+        configureMapView()
         
         getImages()
+    }
+    
+    private func configureMapView() {
+        guard let post = post,
+              let postType = postType
+        else {
+            return
+        }
+
+        if postType.id != "everyonesFoot" {
+            return
+        }
+        
+        guard let mapRef = post.map else {return}
+        
+        self.mapView.isHidden = false
+        self.mapView.delegate = self
+        self.mapView.showsScale = true
+        
+        mapRef.getDocument { snapshot, error in
+            if let error = error {
+                print("ERROR: \(String(describing: error.localizedDescription))")
+                return
+            }
+            
+            guard let document = snapshot,
+                  let data = document.data(),
+                  let locations = data["locations"] as? [NSDictionary]
+            else {
+                return
+            }
+            
+            self.locations = locations.compactMap { location -> LocationInfo? in
+                guard let latitudeString = location["latitude"] as? String,
+                      let longitudeString = location["longitude"] as? String,
+                      let createdAt = (location["createdAt"] as? Timestamp)?.dateValue(),
+                      let latitude = Double(latitudeString),
+                      let longitude = Double(longitudeString)
+                else {
+                    return nil
+                }
+                
+                let location = CLLocation(latitude: latitude, longitude: longitude)
+                
+                let annotation = FootPrintsAnnotation(coordinate: location.coordinate)
+                self.mapView.addAnnotation(annotation)
+
+                return LocationInfo(latitude: latitudeString, longitude: longitudeString, createdAt: createdAt, location: location)
+            }
+        }
     }
     
     private func configureDeleteAlertView() {
@@ -90,7 +142,7 @@ class PostDetailViewController: UIViewController {
         }
     }
     
-    func configurePage() {
+    private func configurePage() {
         guard let post = post,
               let postType = postType
         else {
@@ -126,10 +178,6 @@ class PostDetailViewController: UIViewController {
         
         if postType.id != "notice" {
             navigationItem.rightBarButtonItems = [likeBarButton, commentBarButton]
-        }
-        
-        if postType.id == "everyonesFoot" {
-            mapView.isHidden = false
         }
     }
     
@@ -213,5 +261,45 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         
         imageDetailViewController.imageURL = images[indexPath.row].url
         self.present(imageDetailViewController, animated: true)
+    }
+}
+
+
+extension PostDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotation = annotation as? FootPrintsAnnotation {
+            let annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: FootPrintsAnnotationView.identifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: FootPrintsAnnotationView.identifier)
+                        
+            annotationView.annotation = annotation
+            
+            let footPrintsImage: UIImage!
+            
+            footPrintsImage = UIImage(named: "footprints")
+            
+            let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 15, height: 15)).image(actions: {_ in
+                footPrintsImage.draw(in: CGRect(x: 0, y: 0, width: 15, height: 15))
+            })
+            annotationView.image = resizedImage
+            annotationView.clusteringIdentifier = FootPrintsClusterAnnotationView.identifier
+            
+            return annotationView
+        } else if let cluster = annotation as? MKClusterAnnotation {
+            let clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: FootPrintsClusterAnnotationView.identifier) ?? MKAnnotationView(annotation: cluster, reuseIdentifier: FootPrintsClusterAnnotationView.identifier)
+            
+            clusterView.annotation = cluster
+            
+            let footPrintsImage: UIImage!
+            
+            footPrintsImage = UIImage(named: "footprints")
+            
+            let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 15, height: 15)).image(actions: {_ in
+                footPrintsImage.draw(in: CGRect(x: 0, y: 0, width: 15, height: 15))
+            })
+            clusterView.image = resizedImage
+            
+            return clusterView
+        } else {
+            return nil
+        }
     }
 }

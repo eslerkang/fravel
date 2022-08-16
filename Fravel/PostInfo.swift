@@ -18,6 +18,7 @@ struct Post {
     let createdAt: Date
     let userDisplayName: String?
     let images: [String]?
+    let map: DocumentReference?
 }
 
 

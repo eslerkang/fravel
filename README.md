@@ -1,17 +1,13 @@
-![Logo](https://user-images.githubusercontent.com/93065107/163680833-fd982845-7456-4675-b0db-58fc2e91908b.png)
-
-
 # :iphone: Project Title
 
-### HealTea
+### Fravel - 전세계를 누비는 우리의 여행 발자국
 
 
 ## :pushpin: Features
-
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- 나만의 발자국: 사용자가 여행을 손쉽게 기록할 수 있는 기능
+- 아바타: 각 사용자에게 주어지는 개성있는 아바타를 통한 커뮤니티, 재미 요소
+- 모두의 발자국: 게시글에 지도를 임베드하여 다른 사람들에게 나만의 발자국을 공유할 수 있는 기능
+- 커뮤니티: 꿀팁, 사진 스팟 등 여행과 관련된 다양한 커뮤니티
 
 
 ## :people_hugging: Authors
@@ -19,29 +15,6 @@
 - [@YourName](https://www.github.com/) | [@YourName](https://www.github.com/) | [@YourName](https://www.github.com/) | [@YourName](https://www.github.com/) | [@YourName](https://www.github.com/) | [@YourName](https://www.github.com/)
 
 
-## :framed_picture: Demo
-
-Insert gif or link to demo
-
-
-## :fireworks: Screenshots
-
-![App Screenshot](https://dummyimage.com/250x500/000/fff.png)
-![App Screenshot](https://dummyimage.com/250x500/000/fff.png)
-![App Screenshot](https://dummyimage.com/250x500/000/fff.png)
-![App Screenshot](https://dummyimage.com/250x500/000/fff.png)
-![App Screenshot](https://dummyimage.com/250x500/000/fff.png)
-![App Screenshot](https://dummyimage.com/250x500/000/fff.png)
-
 
 ## :sparkles: Skills & Tech Stack
-swiftUI …
-
-## :books: Documentation
-
-[Documentation](https://linktodocumentation)
-
-
-## :lock_with_ink_pen: License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+UIKit, KingFisher, Firebase, Git

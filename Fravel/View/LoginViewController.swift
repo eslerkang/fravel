@@ -113,7 +113,8 @@ class LoginViewController: UIViewController {
                 let displayname = user.displayName ?? user.email ?? "사용자"
                 
                 self.db.collection("users").document(user.uid).setData([
-                    "displayname": displayname
+                    "displayname": displayname,
+                    "image": "gs://fravel-1c38a.appspot.com/avatars/vadim-bogulov-rdHrrFA1KKg-unsplash.jpg"
                 ]) { error in
                     print("ERROR: \(String(describing: error?.localizedDescription))")
                 }

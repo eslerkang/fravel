@@ -32,6 +32,7 @@
 		4CB38DB52893CC4600D96084 /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB38DB42893CC4600D96084 /* PostListViewController.swift */; };
 		4CB38DB72893CC6F00D96084 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */; };
 		4CC7C9DB28A160AD007DEE17 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */; };
+		4CD8018C28AE250900F8B706 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8018B28AE250900F8B706 /* UserInfo.swift */; };
 		4CE7E57B2888DF4E002BD955 /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE7E5792888DF4E002BD955 /* DefaultTableViewCell.swift */; };
 		4CE7E57C2888DF4E002BD955 /* DefaultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */; };
 		4CF24674287985B300E233FC /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF24673287985B300E233FC /* NetworkCheck.swift */; };
@@ -79,6 +80,7 @@
 		4CB38DB42893CC4600D96084 /* PostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
 		4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		4CD8018B28AE250900F8B706 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		4CE7E5792888DF4E002BD955 /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
 		4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefaultTableViewCell.xib; sourceTree = "<group>"; };
 		4CF24673287985B300E233FC /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				4CF24675287992E500E233FC /* LocationInfo.swift */,
 				4CF24673287985B300E233FC /* NetworkCheck.swift */,
 				4CAFBB3128882A2A00D33351 /* PostInfo.swift */,
+				4CD8018B28AE250900F8B706 /* UserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				4CB38DB72893CC6F00D96084 /* PostDetailViewController.swift in Sources */,
 				4CB38DB52893CC4600D96084 /* PostListViewController.swift in Sources */,
 				4C250395286D19A90053575D /* TabBarViewController.swift in Sources */,
+				4CD8018C28AE250900F8B706 /* UserInfo.swift in Sources */,
 				4CF24674287985B300E233FC /* NetworkCheck.swift in Sources */,
 				4C429992286BC4BD001C3010 /* LoginViewController.swift in Sources */,
 				4CC7C9DB28A160AD007DEE17 /* ImageDetailViewController.swift in Sources */,

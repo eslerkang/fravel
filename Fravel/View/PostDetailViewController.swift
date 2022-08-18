@@ -36,7 +36,7 @@ class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
-
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         

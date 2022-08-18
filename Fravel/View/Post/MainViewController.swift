@@ -100,7 +100,6 @@ class MainViewController: UIViewController {
                             if let error = error {
                                 print("ERROR: \(String(describing: error.localizedDescription))")
                                 self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
-                                return
                             } else {
                                 if let document = snapshot, document.exists {
                                     let data = document.data()
@@ -112,7 +111,6 @@ class MainViewController: UIViewController {
                                 } else {
                                     print("ERROR: Document does not exist")
                                     self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
-                                    return
                                 }
                             }
                         }

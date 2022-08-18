@@ -137,15 +137,6 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: defaultCellId, bundle: nil), forCellReuseIdentifier: defaultCellId)
     }
     
-    private func dateToString(date: Date) -> String {
-        let formatter = DateFormatter()
-        
-        formatter.dateFormat = "yyyy.MM.dd"
-        formatter.locale = Locale(identifier: "ko_KR")
-        
-        return formatter.string(from: date)
-    }
-    
     @IBAction func tapWritePostButton(_ sender: UIButton) {
         let writePostViewController = storyboard?.instantiateViewController(withIdentifier: "WritePostViewController") as! WritePostViewController
         self.show(writePostViewController, sender: nil)

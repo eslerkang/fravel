@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseCore
 
 struct Post {
     let id: String
@@ -16,9 +15,13 @@ struct Post {
     let userId: String?
     let type: String
     let createdAt: Date
-    let userDisplayName: String?
+    var userDisplayName: String?
     let images: [String]?
     let map: DocumentReference?
+    
+    mutating func changeDisplayName(displayname: String) {
+        userDisplayName = displayname
+    }
 }
 
 

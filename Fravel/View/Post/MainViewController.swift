@@ -29,7 +29,12 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
         self.navigationController?.navigationBar.topItem?.title = ""
-        
+                
+        setupTableView()
+        getPosts()
+    }
+    
+    private func getPosts() {
         db.collection("types").order(by: "order").addSnapshotListener { querySnapshot, error in
             if error != nil {
                 print("ERROR: \(String(describing: error))")
@@ -48,13 +53,13 @@ class MainViewController: UIViewController {
                 return PostType(id: id, name: name)
             }
                         
-            for (index, postType) in self.postTypes.enumerated() {
+            for (section, postType) in self.postTypes.enumerated() {
                 self.tableViewData.append([])
                 
                 let id = postType.id
                 
                 self.db.collection("posts").whereField("type", isEqualTo: self.db.document("/types/\(id)")).order(by: "createdAt", descending: true).limit(to: 5).addSnapshotListener { querySnapshot, error in
-                    self.tableViewData[index] = []
+                    self.tableViewData[section] = []
                     if error != nil {
                         print("ERROR: \(String(describing: error))")
                         return
@@ -65,7 +70,7 @@ class MainViewController: UIViewController {
                         return
                     }
                     
-                    documents.forEach { doc in
+                    for (row, doc) in documents.enumerated() {
                         let data = doc.data()
                         let type = id
                         let id = doc.documentID
@@ -83,10 +88,7 @@ class MainViewController: UIViewController {
                         let map = data["map"] as? DocumentReference
                         
                         guard let userId = data["userId"] as? String else {
-                            self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map))
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
+                            self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
                             return
                         }
                         
@@ -94,21 +96,21 @@ class MainViewController: UIViewController {
                         self.db.collection("users").document(userId).addSnapshotListener { snapshot, error in
                             if let error = error {
                                 print("ERROR: \(String(describing: error.localizedDescription))")
-                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
+                                self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
                                 return
                             }
                             
                             if let document = snapshot, document.exists {
                                 let data = document.data()
                                 guard let displayname = data?["displayname"] as? String else {
-                                    self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
+                                    self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
                                     return
                                 }
                                 
-                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images, map: map)
+                                self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images, map: map)
                             } else {
                                 print("ERROR: Document does not exist")
-                                self.appendPost(index: index, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
+                                self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
                                 return
                             }
                         }
@@ -116,14 +118,18 @@ class MainViewController: UIViewController {
                 }
             }
         }
-        
-        setupTableView()
     }
     
-    func appendPost(index: Int, id: String, title: String, content: String, userId: String?, type: String, createdAt: Date, userDisplayName: String?, images: [String]?, map: DocumentReference?) {
-        self.tableViewData[index].append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: userDisplayName, images: images, map: map))
-        self.tableViewData[index].sort {
-            $0.createdAt > $1.createdAt
+    func appendPost(section: Int, row: Int, id: String, title: String, content: String, userId: String?, type: String, createdAt: Date, userDisplayName: String?, images: [String]?, map: DocumentReference?) {
+        let post = Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: userDisplayName, images: images, map: map)
+        if self.tableViewData[section].count > row {
+            self.tableViewData[section][row] = post
+        } else {
+            self.tableViewData[section].append(post)
+            
+            self.tableViewData[section].sort {
+                $0.createdAt > $1.createdAt
+            }
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()

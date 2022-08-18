@@ -143,24 +143,12 @@
 		4C09E84628ABCA2C0067D5C1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */,
-				4C09E84728ABCAAD0067D5C1 /* ShowPicker.swift */,
+				4CF6124228AEB2DB00598129 /* General */,
+				4CF6124128AEB2C700598129 /* Image */,
+				4CF6124028AEB27D00598129 /* Map */,
+				4CF6123F28AEB27000598129 /* Post */,
 				4C429991286BC4BD001C3010 /* LoginViewController.swift */,
-				4C429993286BC530001C3010 /* MainViewController.swift */,
-				4C429995286BC5D3001C3010 /* MapViewController.swift */,
 				4C429997286BC5DE001C3010 /* ProfileViewController.swift */,
-				4C250394286D19A90053575D /* TabBarViewController.swift */,
-				4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */,
-				4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */,
-				4CE7E5792888DF4E002BD955 /* DefaultTableViewCell.swift */,
-				4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */,
-				4CB38DB42893CC4600D96084 /* PostListViewController.swift */,
-				4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */,
-				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
-				4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */,
-				4C12CAD628A2550400B9085A /* WritePostViewController.swift */,
-				4C47B6C428A53498001B581F /* LoadingViewController.swift */,
-				4C09E84328ABCA100067D5C1 /* MapDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +188,50 @@
 				4C298537286BB25600800D0C /* GoogleService-Info.plist */,
 			);
 			path = Fravel;
+			sourceTree = "<group>";
+		};
+		4CF6123F28AEB27000598129 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				4C12CAD628A2550400B9085A /* WritePostViewController.swift */,
+				4C429993286BC530001C3010 /* MainViewController.swift */,
+				4CB38DB42893CC4600D96084 /* PostListViewController.swift */,
+				4CB38DB62893CC6F00D96084 /* PostDetailViewController.swift */,
+				4C4134AF286E6E74006CB0A5 /* NoticeTableViewCell.swift */,
+				4C4134B0286E6E74006CB0A5 /* NoticeTableViewCell.xib */,
+				4CE7E5792888DF4E002BD955 /* DefaultTableViewCell.swift */,
+				4CE7E57A2888DF4E002BD955 /* DefaultTableViewCell.xib */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		4CF6124028AEB27D00598129 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4CAFB29D28799DD3001B412C /* FootprintsAnnotation.swift */,
+				4C429995286BC5D3001C3010 /* MapViewController.swift */,
+				4C09E84328ABCA100067D5C1 /* MapDetailViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		4CF6124128AEB2C700598129 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				4C6FFE9C28A0D94E00710AA2 /* ImageCollectionViewCell.swift */,
+				4CC7C9DA28A160AD007DEE17 /* ImageDetailViewController.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		4CF6124228AEB2DB00598129 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				4C09E84728ABCAAD0067D5C1 /* ShowPicker.swift */,
+				4C47B6C428A53498001B581F /* LoadingViewController.swift */,
+				4C250394286D19A90053575D /* TabBarViewController.swift */,
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 		EB44A9C76BC218637F57F353 /* Pods */ = {
@@ -515,7 +547,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.eslerkang.Fravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -549,7 +581,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.eslerkang.Fravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

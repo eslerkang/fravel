@@ -246,19 +246,32 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oca-8j-fG7">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="380"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="865.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KFE-Zx-0ld">
-                                                <rect key="frame" x="20" y="20" width="374" height="340"/>
+                                                <rect key="frame" x="20" y="20" width="374" height="345.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아바타" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd2-c2-o1A">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="23"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="W1F-8G-TAd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아바타" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd2-c2-o1A">
+                                                                <rect key="frame" x="0.0" y="5.5" width="44.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExR-lb-dh3">
+                                                                <rect key="frame" x="325.5" y="0.0" width="48.5" height="31"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="변경"/>
+                                                                <connections>
+                                                                    <action selector="tapProfileImageEditButton:" destination="MIL-6h-Xkj" eventType="touchUpInside" id="JeI-n2-HyJ"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOW-no-9b3">
-                                                        <rect key="frame" x="0.0" y="43" width="374" height="200"/>
+                                                        <rect key="frame" x="0.0" y="51" width="374" height="200"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="95U-QY-f0A">
                                                                 <rect key="frame" x="87" y="0.0" width="200" height="200"/>
@@ -276,13 +289,13 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQv-C9-lim">
-                                                        <rect key="frame" x="0.0" y="263" width="374" height="23"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <rect key="frame" x="0.0" y="271" width="374" height="20.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Jv-Te-i1b">
-                                                        <rect key="frame" x="0.0" y="306" width="374" height="34"/>
+                                                        <rect key="frame" x="0.0" y="311.5" width="374" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -294,7 +307,7 @@
                                             <constraint firstItem="KFE-Zx-0ld" firstAttribute="leading" secondItem="Oca-8j-fG7" secondAttribute="leading" constant="20" id="dVP-RA-RZR"/>
                                             <constraint firstAttribute="trailing" secondItem="KFE-Zx-0ld" secondAttribute="trailing" constant="20" id="pNq-FY-A54"/>
                                             <constraint firstItem="KFE-Zx-0ld" firstAttribute="top" secondItem="Oca-8j-fG7" secondAttribute="top" constant="20" id="pUU-UP-h7C"/>
-                                            <constraint firstAttribute="bottom" secondItem="KFE-Zx-0ld" secondAttribute="bottom" constant="20" id="xwA-e7-5lR"/>
+                                            <constraint firstAttribute="bottom" secondItem="KFE-Zx-0ld" secondAttribute="bottom" constant="500" id="xwA-e7-5lR"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -326,13 +339,18 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="person" catalog="system" title="수정"/>
+                                <connections>
+                                    <action selector="tapEditButton:" destination="MIL-6h-Xkj" eventType="touchUpInside" id="q4O-RD-Gqx"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="displayNameField" destination="5Jv-Te-i1b" id="Pt0-Jp-lcP"/>
                         <outlet property="editUserInfoButton" destination="IuM-1q-jrp" id="kBM-Kq-NQf"/>
                         <outlet property="profileImageContainer" destination="hOW-no-9b3" id="hUG-NA-4Xr"/>
                         <outlet property="profileImageView" destination="95U-QY-f0A" id="kKT-Q3-eV5"/>
+                        <outlet property="scrollView" destination="cPQ-fp-woE" id="aFf-Wc-TiS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ym3-ar-wcb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

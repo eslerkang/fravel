@@ -85,36 +85,32 @@ class PostListViewController: UITableViewController {
                 let images = data["images"] as? [String]
                 let map = data["map"] as? DocumentReference
                 
-                guard let userId = data["userId"] as? String else {
-                    self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map))
-                    self.sortPost()
-                    return
-                }
-                
-                self.db.collection("users").document(userId).addSnapshotListener { snapshot, error in
-                    if let error = error {
-                        print("ERROR: \(String(describing: error.localizedDescription))")
-                        self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)", images: images, map: map))
-                        self.sortPost()
-                        return
-                    }
-                    
-                    if let document = snapshot, document.exists {
-                        let data = document.data()
-                        guard let displayname = data?["displayname"] as? String else {
+                if let userId = data["userId"] as? String {
+                    self.db.collection("users").document(userId).addSnapshotListener { snapshot, error in
+                        if let error = error {
+                            print("ERROR: \(String(describing: error.localizedDescription))")
                             self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)", images: images, map: map))
                             self.sortPost()
-                            return
+                        } else {
+                            if let document = snapshot, document.exists {
+                                let data = document.data()
+                                if let displayname = data?["displayname"] as? String {
+                                    self.posts.append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images, map: map))
+                                    self.sortPost()
+                                } else {
+                                    self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)", images: images, map: map))
+                                    self.sortPost()
+                                }
+                            } else {
+                                print("ERROR: Document does not exist")
+                                self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)", images: images, map: map))
+                                self.sortPost()
+                            }
                         }
-                            
-                        self.posts.append(Post(id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images, map: map))
-                        self.sortPost()
-                    } else {
-                        print("ERROR: Document does not exist")
-                        self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: "(알수없음)", images: images, map: map))
-                        self.sortPost()
-                        return
                     }
+                } else {
+                    self.posts.append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map))
+                    self.sortPost()
                 }
             }
         }

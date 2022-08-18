@@ -88,8 +88,11 @@ class MainViewController: UIViewController {
                         let map = data["map"] as? DocumentReference
                         
                         guard let userId = data["userId"] as? String else {
-                            self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
-                            return
+                            self.tableViewData[section].append(Post(id: id, title: title, content: content, userId: nil, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map))
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                            continue
                         }
                         
             
@@ -98,20 +101,19 @@ class MainViewController: UIViewController {
                                 print("ERROR: \(String(describing: error.localizedDescription))")
                                 self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
                                 return
-                            }
-                            
-                            if let document = snapshot, document.exists {
-                                let data = document.data()
-                                guard let displayname = data?["displayname"] as? String else {
+                            } else {
+                                if let document = snapshot, document.exists {
+                                    let data = document.data()
+                                    if let displayname = data?["displayname"] as? String {
+                                        self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images, map: map)
+                                    } else {
+                                        self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
+                                    }
+                                } else {
+                                    print("ERROR: Document does not exist")
                                     self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
                                     return
                                 }
-                                
-                                self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: displayname, images: images, map: map)
-                            } else {
-                                print("ERROR: Document does not exist")
-                                self.appendPost(section: section, row: row, id: id, title: title, content: content, userId: userId, type: type, createdAt: createdAt, userDisplayName: nil, images: images, map: map)
-                                return
                             }
                         }
                     }
@@ -126,10 +128,6 @@ class MainViewController: UIViewController {
             self.tableViewData[section][row] = post
         } else {
             self.tableViewData[section].append(post)
-            
-            self.tableViewData[section].sort {
-                $0.createdAt > $1.createdAt
-            }
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()

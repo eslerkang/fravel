@@ -24,6 +24,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var commentTableView: UITableView!
     @IBOutlet weak var likeTableView: UITableView!
     @IBOutlet weak var wrotePostStackView: UIStackView!
+    @IBOutlet weak var logoutButton: UIButton!
+    let logoutAlertView = UIAlertController(title: "로그아웃", message: "정말 로그아웃하시겠습니까?", preferredStyle: .alert)
+
     
     let storage = Storage.storage()
     let db = Firestore.firestore()
@@ -46,6 +49,7 @@ class ProfileViewController: UIViewController {
         configureTextField()
         configureTableView()
         configureNavigationItems()
+        configureAlertView()
     }
     
     private func getUser() {
@@ -92,6 +96,7 @@ class ProfileViewController: UIViewController {
                     self.profileImageView.contentMode = .scaleAspectFill
                     
                     self.editUserInfoButtonItem.isEnabled = true
+                    self.logoutButton.isEnabled = true
                     
                     self.getWrotePosts()
                 }
@@ -196,6 +201,23 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private func configureAlertView() {
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let logoutAction = UIAlertAction(title: "로그아웃", style: .destructive) { _ in
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print("ERROR: \(signOutError.debugDescription)")
+            }
+            
+            self.dismiss(animated: true)
+        }
+        
+        logoutAlertView.addAction(cancelAction)
+        logoutAlertView.addAction(logoutAction)
+    }
+    
     private func configureTableView() {
         postTableView.delegate = self
         postTableView.dataSource = self
@@ -285,6 +307,11 @@ class ProfileViewController: UIViewController {
     @IBAction func changedTextField(_ sender: UITextField) {
         editUserInfoButtonItem.isEnabled = !(displayNameField.text?.isEmpty ?? true)
     }
+    
+    @IBAction func tapLogoutButton(_ sender: UIButton) {
+        present(logoutAlertView, animated: true)
+    }
+
     
     @objc
     private func hideSection(sender: UIButton) {

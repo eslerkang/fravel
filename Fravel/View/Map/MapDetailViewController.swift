@@ -26,6 +26,8 @@ class MapDetailViewController: UIViewController {
         
         configureMapView()
         configureLocationPicker()
+        
+        overrideUserInterfaceStyle = .light
     }
     
     private func configureLocationPicker() {

@@ -39,7 +39,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="JdR-Hf-aJT">
                                 <rect key="frame" x="80" y="570" width="254" height="160"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGm-fU-zYa">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGm-fU-zYa">
                                         <rect key="frame" x="0.0" y="0.0" width="254" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Lcy-nC-o0e"/>
@@ -54,7 +54,7 @@
                                             <action selector="tapGoogleLoginButton:" destination="D50-Gj-6e0" eventType="touchUpInside" id="BDW-wG-6HI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCc-eM-QFP">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCc-eM-QFP">
                                         <rect key="frame" x="0.0" y="100" width="254" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="gWg-Hy-Llt"/>

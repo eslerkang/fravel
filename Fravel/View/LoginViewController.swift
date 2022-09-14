@@ -86,6 +86,13 @@ class LoginViewController: UIViewController {
         
         if let _ = Auth.auth().currentUser {
             self.moveToTabBarController()
+        } else {
+            [
+                googleLoginButton,
+                appleLoginButton
+            ].forEach {
+                $0?.isEnabled = true
+            }
         }
     }
     

@@ -18,7 +18,46 @@ import FirebaseFirestore
 class LoginViewController: UIViewController {
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
     @IBOutlet weak var appleLoginButton: UIButton!
-    
+    private lazy var sexSelectAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: "성별 선택", message: "당신과 함꼐할 아바타의 성별을 선택하세요!", preferredStyle: .actionSheet)
+        
+        guard let user = Auth.auth().currentUser,
+              let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarViewController
+        else {
+            return alertController
+        }
+        let displayname = user.displayName ?? user.email ?? "사용자"
+        tabBarController.modalPresentationStyle = .fullScreen
+        
+        let male = UIAlertAction(title: "남성", style: .default, handler: { _ in
+            self.db.collection("users").document(user.uid).setData([
+                "displayname": displayname,
+                "isMale": true,
+                "image": self.maleDefaultAvatar
+            ]) { error in
+                print("ERROR: \(String(describing: error?.localizedDescription))")
+            }
+            self.present(tabBarController, animated: true)
+        })
+        let female = UIAlertAction(title: "여성", style: .default, handler: { _ in
+            self.db.collection("users").document(user.uid).setData([
+                "displayname": displayname,
+                "isMale": false,
+                "image": self.femaleDefaultAvatar
+            ]) { error in
+                print("ERROR: \(String(describing: error?.localizedDescription))")
+            }
+            self.present(tabBarController, animated: true)
+        })
+        
+        alertController.addAction(male)
+        alertController.addAction(female)
+        
+        return alertController
+    }()
+    private let maleDefaultAvatar = "gs://fravel-1c38a.appspot.com/avatars/vadim-bogulov-qGDSeP0CGCk-unsplash.jpg"
+    private let femaleDefaultAvatar = "gs://fravel-1c38a.appspot.com/avatars/vadim-bogulov-rdHrrFA1KKg-unsplash.jpg"
+
     fileprivate var currentNonce: String?
     
     let db = Firestore.firestore()
@@ -110,19 +149,16 @@ class LoginViewController: UIViewController {
                 return
             }
             if document?.data() == nil {
-                let displayname = user.displayName ?? user.email ?? "사용자"
-                
-                self.db.collection("users").document(user.uid).setData([
-                    "displayname": displayname,
-                    "image": "gs://fravel-1c38a.appspot.com/avatars/vadim-bogulov-rdHrrFA1KKg-unsplash.jpg"
-                ]) { error in
-                    print("ERROR: \(String(describing: error?.localizedDescription))")
+                self.present(self.sexSelectAlertController, animated: true)
+            } else {
+                DispatchQueue.main.async {
+                    guard let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarViewController else {return}
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    self.present(tabBarController, animated: true)
                 }
             }
         }
-        guard let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarViewController else {return}
-        tabBarController.modalPresentationStyle = .fullScreen
-        self.present(tabBarController, animated: true)
+
     }
 }
 

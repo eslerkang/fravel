@@ -671,7 +671,7 @@
                     <navigationItem key="navigationItem" id="dcB-Az-UHq">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="swv-uG-AA8">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ndb-Gx-f40">
-                                <rect key="frame" x="299.5" y="5" width="94.5" height="34.5"/>
+                                <rect key="frame" x="299.5" y="4.5" width="94.5" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
